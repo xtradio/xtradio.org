@@ -1,0 +1,13 @@
+# Site Settings
+Title: XTRadio.ORG
+email: contact@xtradio.org
+url: "http://xtrad.io:4000"
+description: >
+  We Love Music! Do You?!
+twitter_username: xtradioofficial
+github_username: xtradio
+# Build settings
+sass:
+  sass_dir: _sass
+kramdown:
+  input: GFM

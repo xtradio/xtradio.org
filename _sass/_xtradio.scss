@@ -1,0 +1,69 @@
+#draw, svg {
+	position: relative;
+	z-index: 1;
+	top: -480px;
+}
+
+#trackdetails {
+	padding: 0;
+	z-index: 3;
+background-color: rgba(255, 255, 255, 0.7);
+	min-height: 250px;
+}
+
+#metadata {
+	display: block;
+}
+
+
+#links {
+	padding: 5px;
+        z-index: 3;
+}
+
+.footer {
+
+}
+
+#controls {
+	color: white;
+	font-size: 2em;
+}
+
+.header-image {
+	max-height: 500px;
+}
+
+#albumart {
+	float: left;
+}
+
+vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+#artist {
+    text-align: center;
+    color: #E9550F;
+    font-size: 2em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 1em;
+    padding-bottom: 10px;
+    line-height: 1em;
+    }
+
+#artist a {
+	color: #E9550F;
+	text-decoration: none;
+}
+
+#title {
+    position: relative;
+    color: #03789F;
+    display: block;
+    font-size: 2.5em;
+    line-height: 1em;
+    text-align: center;
+}
