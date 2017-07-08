@@ -22,7 +22,6 @@ background-color: rgba(255, 255, 255, 0.7);
 }
 
 .footer {
-
 }
 
 #controls {
@@ -36,6 +35,8 @@ background-color: rgba(255, 255, 255, 0.7);
 
 #albumart {
 	float: left;
+	width: 250px;
+	padding: 0px;
 }
 
 vertical-align {
@@ -67,3 +68,10 @@ vertical-align {
     line-height: 1em;
     text-align: center;
 }
+
+.navbar-nav>li>a {
+    font-size: 1.2em;
+    padding-top: 1.3em;
+    padding-bottom: 0.5em;
+}
+
