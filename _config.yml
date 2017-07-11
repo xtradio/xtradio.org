@@ -38,4 +38,7 @@ social:
 # Exclude files
 exclude: ['README.md', 
           'docker-compose.yml',
-          'LICENSE']
+          'LICENSE',
+          '.travis.yml',
+          'Gemfile',
+          'tests']
