@@ -13,31 +13,24 @@ kramdown:
 
 # XTRadio links
 social:
-  stream:
   - url: "http://xtradio.org:8080/live.m3u"
     icon: "winamp-icon.png"
     title: "Download playlist file"
-  playlist:
   - url: "http://xtradio.org/stream.m3u"
     icon: "itunes-icon.png"
     title: "Open Radio in iTunes"
-  tunein:
   - url: "https://tunein.com/radio/XTRadio-s182867/"
     icon: "tunein-icon.png"
     title: "Listen on TuneIn"
-  soundcloud: 
   - url: "https://soundcloud.com/xtradio"
     icon: "soundcloud-icon.png"
     title: "Follow XTRadio on Soundcloud"
-  youtube: 
   - url: "https://youtube.com/xtradioorg/live"
     icon: "youtube-icon.png"
     title: "XTRadio on YouTube"
-  facebook: 
   - url: "https://facebook.com/xtradioorg"
     icon: "fb.png"
     title: "XTRadio on Facebook"
-  twitter: 
   - url: "https://twitter.com/xtradioofficial"
     icon: "tw.png"
     title: "XTRadio on Twitter"
