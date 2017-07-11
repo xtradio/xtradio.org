@@ -34,3 +34,8 @@ social:
   - url: "https://twitter.com/xtradioofficial"
     icon: "tw.png"
     title: "XTRadio on Twitter"
+
+# Exclude files
+exclude: ['README.md', 
+          'docker-compose.yml',
+          'LICENSE']
