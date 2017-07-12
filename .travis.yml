@@ -1,7 +1,10 @@
 language: ruby
 rvm:
 - 2.3.3
+addons:
+  ssh_known_hosts: xtradio.org
 before_script:
+- sudo apt-get install -y -q sshpass
 - chmod +x ./tests/cibuild.sh
 script: "./tests/cibuild.sh"
 branches:
@@ -12,10 +15,8 @@ env:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - secure: qaZQVdQN5H+k2PhF90Pwcf/wJPuUuOgj280ZA6Lus/37L61W5V33gb/i9QixK9NkGi/WhB5NP2q9uBCcHJ0gl+D5tTfaC9OR2SRoTtVZe75NXy6CIWiP4D1JCLGDsVImKrsY7bq7lk/5gUV0TtnEWogi6EaQpMEuckme/6SWekdsTJ7wJHHf+06asHtJu5baNySIQ++YlSQoEBK1wpDaG8ui1EXOhaFaCtUDbVvnmFI/3rOXW3QyMZDPyPq8ws9xirwx7m4F1uXe1b+h5D9D5Gq9LikmQwKb/ae5WeWL+RRUDij6uuF+IRALYtLCft+WNdcZtK0WV1J4edDzPtGTyjCicRApLwYWSYaJIYIFI7nxfj/MoHoga9g7hSoXGLlWp+dLckqEE7k7XwNx5CpSSm/6czXePo1jaacHrpNUv5BOQW3sYf/Spzo+c4OlOBfHDTHO519OIsBowyrKXZjQlM0jRHeUPcrBnRh1yPNooENZz/CFIkwvdgwhW9fMjuTx7pYnSzj9Uny0YslIYP1WjKTXmQWGTtmu8CYv0JsfNADVqGmX/fiiJFd/+WxN5DxEQOZqmKs9QzHk8JPPjk/E6/ss13K3aqLaX4gVLfcVFuy64W1aAm/cZ0cuIKlpsN5+eHyWv6pMUv/hotPKa94K3e0F+M2GQoQwM3kgpbSFliI=
   - secure: DAMH9MF7Qamyt3Sri6k8/yJ2GPtoIUylLmu+mntxBo07tYp9CzqwJsR8+4LdQKQJ0V7Ew8S23bq+DHayAg8mi8gPnDoNdaBbarBlNLY+2H4oDdQ4Bo04lIIFpRVTKd9CYMF5y9aQvNRHTYfibtEH8vRztfeNXCfAOz0S6UcYfs5yo0LLZmee4ybRGoJhjrVSlbfNFnIPWlxLkvPdyLM0ufBM2VvpMxrjxHxuty4XDvfuGj6JecRfFu0vVBvgbv0s503WQl+FALNtYZ1WP/W4h9QYGghQc/jEAvQFc/WxJj2nT7GIgM19QuqEi28YYHM8ARQFVpwmpdKosDOa4+eUxAAFeEXGPvSJMy+N3RCc3dBhXf0FruZfzathD6kpz7GIWyABnW/gnzWekh9mvc2O3oCDMk5UZVekhlO0ZugYWzsqlMV4Rsks8ZEBnTGs9pfnBjGOjud4aNCpxJ0dTS6tMSeFor2G7cWDalrOuwFtTJ2oB7XSilT94t4ONCtOf7SZaFo6BYYhzugakuX+hlTHwH7L4DlTGiC7vFVptf9A5d6yGEKHN+NUeWuRdHSwVEKrAglCSXfwX1gAzp7xjZDAAungwhWHPg3M7sWwSjZfjmnWz6lN5IeRswEpZSAqIT8552LZ9S1f6RW+ZxVGrTprW43advfmpgWvsx3xEjznk1U=
-sudo: false
 notifications:
   slack:
     secure: 0Toa67ZJrxFt3nJMFuUVO4tyB32Kj8hQ3MwDqGgGvqUNUM2R1/EQJtEmHqJMqvQ9X5I4J3vnfSVr815W3y7Mh9WBkr/sgTumlDo2nLwrQAYuFVd0yimuDKmOJ5ZgQA6W7vcECQ8wqLfDOA14RPXIg//mHAgCeI5dj/SfUYq5LsmFpoJj5SndrrKp1KMIcfkPqKDws8GmCxDe5B4ztJriQmuVa8wWYlxluGhn/2r6NbaIGJ9NarcSkpbTHUkh5qv5OZD4JQ2bu6s7S/RqYpHVe52RONDjTHkec+uwcjq+rU5W7/fB91QRUAM5qDmM1sfuauTa8KsUWTKbkByKxckZnFqvaUhK8dQmr+M9RnKns7mVkGq1p+GSGi2chVKvF15cZdVsF6qO6WR1R6khkDZLbSaU5eLljIg3flFMzHsDujmuqv7TgWXeFpO99vXUKoJEbyPxEur7gZpMXAIP6IoNns3kYdVY3xkmWQIUgUouefc4kBam46zppWaHfFinZ4u0NB+Cy6XzrKbJbboi99dmL5XDgUCouVh8701z9k5rpj7NowqNE13/dooXhc76dn9cYU7SrAFgGqy0RkzKNs2Yhqhvhf8PiTQwhah9ujbygIE6QLfwhydVbZr32EBrgqVMp4JYkVK31XfeuGLkVA9Oq2pyNJg+RqvgfCgDfKk2hWg=
 after_success:
-  - 'ssh -oStrictHostKeyChecking=no -p $ssh_port travis:$ssh_password@xtradio.org "rm -rf *"'
-  - 'cd _site | scp -P $ssh_port -r * travis:$ssh_password@xtradio.org:'
+  - 'sshpass -p $ssh_password rsync -rvc --delete travis@xtradio.org:$ssh_port/'
