@@ -1,42 +1,41 @@
-#draw, svg {
-	position: relative;
-	z-index: 1;
-	top: -480px;
+#draw,
+svg {
+    position: relative;
+    z-index: 1;
+    top: -480px;
 }
 
 #trackdetails {
-	padding: 0;
-	z-index: 3;
-        background-color: rgba(255, 255, 255, 0.7);
-	min-height: 250px;
+    padding: 0;
+    z-index: 3;
+    background-color: rgba(255, 255, 255, 0.7);
+    min-height: 250px;
 }
 
 #metadata {
-	display: block;
+    display: block;
 }
-
 
 #links {
-	padding: 5px;
-        z-index: 3;
+    padding: 5px;
+    z-index: 3;
 }
 
-.footer {
-}
+.footer {}
 
 #controls {
-	color: white;
-	font-size: 2em;
+    color: white;
+    font-size: 2em;
 }
 
 .header-image {
-	max-height: 500px;
+    max-height: 500px;
 }
 
 #albumart {
-	float: left;
-	width: 250px;
-	padding: 0px;
+    float: left;
+    width: 250px;
+    padding: 0px;
 }
 
 vertical-align {
@@ -53,11 +52,11 @@ vertical-align {
     padding-top: 1em;
     padding-bottom: 10px;
     line-height: 1em;
-    }
+}
 
 #artist a {
-	color: #E9550F;
-	text-decoration: none;
+    color: #E9550F;
+    text-decoration: none;
 }
 
 #title {
