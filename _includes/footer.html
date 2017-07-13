@@ -1,27 +1,21 @@
         <!-- Footer -->
         <footer>
-            <div class="row">
+            <div class="container">
                 <div class="col-lg-12">
 			<p>Copyright &copy; XTRadio.ORG 2008 - {{ 'now' | date: "%Y" }} <a href="https://github.com/xtradio/xtradio.org/"><i class="fa fa-github" aria-hidden="true"></i> Open Source</a></p>
-                </div>
-            </div>
+		</div> <!-- /.col-lg-12 -->
+	    </div> <!-- /.container -->
         </footer>
-
-<div class="footer navbar navbar-inverse navbar-fixed-bottom">
-<div class="container">
-<div id="controls">
-        <audio controls crossOrigin="anonymous" id="audioElement">
-          data-seek="off"
-          <source src="http://xtradio.org:8080/puck.mp3" type="audio/mpeg" />
-          An html5-capable browser is required to play this audio.
-        </audio>
-</div>
-</div>
-</div>
-
-    </div>
-    <!-- /.container -->
-
+    <div class="footer navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container">
+            <div class="col-lg-12" id="controls">
+    	        <audio controls crossOrigin="anonymous" id="audioElement" data-seek="off">
+    	        <source src="http://xtradio.org:8080/puck.mp3" type="audio/mpeg" />
+    	        An html5-capable browser is required to play this audio.
+    	        </audio>
+            </div> <!-- /#controls -->
+        </div> <!-- /.container -->
+    </div> <!-- /.footer -->
     <!-- Bootstrap Core JavaScript -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
