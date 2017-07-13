@@ -36,7 +36,8 @@ social:
     title: "XTRadio on Twitter"
 
 # Exclude files
-exclude: ['README.md', 
+exclude: ['README.md',
+          'CODE_OF_CONDUCT.md',
           'docker-compose.yml',
           'LICENSE',
           '.travis.yml',
