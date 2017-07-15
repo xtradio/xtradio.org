@@ -98,4 +98,11 @@ nowplaying();
 //$("#player").toggle();
 setTimeout( "nowplaying()", reload );
 
+$(window).keypress(function(e) {
+    if (e.which === 32) {
+        var x = document.getElementById("audioElement"); 
+        x.play();
+    }
+});
+
 };
