@@ -185,7 +185,7 @@
 
         var addSongInfo = function () {
 	    var songInfo = document.createElement('button');
-	    $(songInfo).addClass('btn btn-default col-sm-5');
+	    $(songInfo).addClass('btn btn-default col-sm-8');
             $(songInfo).attr('id','barSongInfo');
 
             $(player).append(songInfo);
@@ -252,7 +252,7 @@
 
         var addMute = function () {
             var mute = document.createElement('button');
-            $(mute).addClass('btn btn-default  col-sm-1');
+            $(mute).addClass('btn btn-default col-sm-1');
 
             mute.checkVolume = function () {
                 if (song.volume > 0.5 && !song.muted) {
@@ -301,7 +301,7 @@
             };
 
             var vol_wrapper = document.createElement('div');
-            $(vol_wrapper).addClass('btn  btn-default row col-sm-5 hidden-xs');
+            $(vol_wrapper).addClass('btn btn-default row col-sm-1 hidden-xs');
             $(vol_wrapper).append(volume);
             $(volume).on('change', volume.slide);
             $(song).on('volumechange', volume.set);
