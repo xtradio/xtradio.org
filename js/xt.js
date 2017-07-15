@@ -73,7 +73,7 @@ var show = data.show;
     document.getElementById("artist").innerHTML ='<a href="http://google.com/search?q=' + encodeURIComponent(artist) + '" target="_blank">' + artist + '</a>';
     document.getElementById("albumart").innerHTML = '<img src="' + img + '" width=250 height=250 title="' + artist  + title + '" />';
 
-
+    document.getElementById("barSongInfo").innerHTML = artist + ' - ' + title;
 }
 }
 
