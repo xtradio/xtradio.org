@@ -1,6 +1,7 @@
 var reload = "30000";
 var total = "0";
 var oldTitle = "";
+var length = "";
 function duration() {
 var percent = reload/total*100;
 }
@@ -20,6 +21,8 @@ var title = data.song;
 oldTitle = data.song;
 var artist = data.artist;
 var show = data.show;
+if ( data.lenght != 'false' ) { length = ' (' + data.lenght + ')'; }
+	else { length = ''; }
 	if ( typeof data.secs !== 'undefined' ) { total = data.secs; }
 
 //	if ( data.share !== '' && typeof data.share !== 'undefined' ) { 
@@ -27,33 +30,33 @@ var show = data.show;
 //	$("#share").show();
 //	}
 //	else {
-	$("#share").hide();
+//	$("#share").hide();
 //	}
 
 	if ( typeof data.lenght !== 'undefined' ) {
 	document.getElementById("title").innerHTML = title + ' (' + data.lenght + ')';
 
         var ongoing = data.secs - data.remaining
-    $("#progressbar").val(ongoing);
-    $("#progressbar").attr("max", data.secs);
-                        var progressbar = $('#progressbar'),
-                                max = data.secs,
-                                time = 1000,
-                        value = progressbar.val();
-
-
-                    var loading = function() {
-                        value += 1;
-                        addValue = progressbar.val(value);
-
-                        if (value == max) {
-                            clearInterval(animate);
-                        }
-                    };
-
-                    var animate = setInterval(function() {
-                        loading();
-                    }, time);
+//    $("#progressbar").val(ongoing);
+//    $("#progressbar").attr("max", data.secs);
+//                        var progressbar = $('#progressbar'),
+//                                max = data.secs,
+//                                time = 1000,
+//                        value = progressbar.val();
+//
+//
+//                    var loading = function() {
+//                        value += 1;
+//                        addValue = progressbar.val(value);
+//
+//                        if (value == max) {
+//                            clearInterval(animate);
+//                        }
+//                    };
+//
+//                    var animate = setInterval(function() {
+//                        loading();
+//                    }, time);
 
 
 	}
@@ -70,10 +73,11 @@ var show = data.show;
 	else { reload = "10000";
 	    setTimeout( "nowplaying()", reload );
 }
-    document.getElementById("artist").innerHTML ='<a href="http://google.com/search?q=' + encodeURIComponent(artist) + '" target="_blank">' + artist + '</a>';
+    document.getElementById("artist").innerHTML ='<a href="' + data.share + '" target="_blank">' + artist + '</a>';
+    document.getElementById("title").innerHTML ='<a href="' + data.share + '" target="_blank">' + title + length + '</a>';
     document.getElementById("albumart").innerHTML = '<img src="' + img + '" width=250 height=250 title="' + artist  + title + '" />';
 
-    document.getElementById("barSongInfo").innerHTML = artist + ' - ' + title;
+    document.getElementById("barSongInfo").innerHTML = '<a href="' + data.share + '" target="_blank">' + artist + ' - ' + title + length + '</a>';
 }
 }
 
