@@ -126,10 +126,10 @@
                 }
                 $(seek).css('background', '-webkit-linear-gradient(left, ' + bg + ')');
                     //These may be re-enabled when/if other browsers support the background like webkit
-                    //$(seek).css('background','-o-linear-gradient(left,  ' + bg + ')');
-                    //$(seek).css('background','-moz-linear-gradient(left,  ' + bg + ')');
-                    //$(seek).css('background','-ms-linear-gradient(left,  ' + bg + ')');
-                    //$(seek).css('background','linear-gradient(to right,  ' + bg + ')');
+                    //$(seek).css('background','-o-linear-gradient(left, ' + bg + ')');
+                    //$(seek).css('background','-moz-linear-gradient(left, ' + bg + ')');
+                    //$(seek).css('background','-ms-linear-gradient(left, ' + bg + ')');
+                    //$(seek).css('background','linear-gradient(to right, ' + bg + ')');
                 $(seek).css('background-color', '#ddd');
             }; // seek.progress
 
@@ -185,7 +185,7 @@
 
         var addSongInfo = function () {
 	    var songInfo = document.createElement('button');
-	    $(songInfo).addClass('btn btn-default col-sm-8');
+	    $(songInfo).addClass('btn btn-default btn-responsive col-xs-9 col-sm-9');
             $(songInfo).attr('id','barSongInfo');
 
             $(player).append(songInfo);
@@ -222,7 +222,7 @@
                     $(time).attr({'title': length_title + (time.timesplit(song.duration))});
                 } else {
                     $(time).html(time.timesplit(song.duration));
-                    $(time).attr({'title': position_title  + (time.timesplit(song.currentTime))});
+                    $(time).attr({'title': position_title + (time.timesplit(song.currentTime))});
                 }
                 $(time).tooltip('fixTitle');
             }; // time.showtime
