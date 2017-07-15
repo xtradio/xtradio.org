@@ -1,3 +1,11 @@
+.full {
+  background: url("/img/rocks-background.jpeg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 #draw,
 svg {
     position: relative;
@@ -8,7 +16,6 @@ svg {
 #trackdetails {
     padding: 0;
     z-index: 3;
-    background-color: rgba(255, 255, 255, 0.7);
     min-height: 250px;
 }
 
@@ -45,7 +52,6 @@ vertical-align {
 
 #artist {
     text-align: center;
-    color: #E9550F;
     font-size: 2em;
     margin-left: auto;
     margin-right: auto;
@@ -55,17 +61,22 @@ vertical-align {
 }
 
 #artist a {
-    color: #E9550F;
+    color: #ffffff;
     text-decoration: none;
 }
 
 #title {
     position: relative;
-    color: #03789F;
+    color: #ffffff;
     display: block;
     font-size: 2.5em;
     line-height: 1em;
     text-align: center;
+}
+
+#title a {
+    color: #ffffff;
+    text-decoration: none;
 }
 
 .navbar-nav>li>a {
@@ -79,4 +90,9 @@ vertical-align {
     display: block;
     margin: 0 auto;
     /* margin-left: auto; margin-right: auto; */
+}
+
+.btn-responsive {
+    white-space: normal !important;
+    word-wrap: break-word;
 }

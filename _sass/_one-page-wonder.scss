@@ -8,6 +8,7 @@ body {
     margin-top: 50px;
     /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     margin-bottom: 0px;
+    background: transparent;
 }
 
 .header-image {
@@ -43,6 +44,7 @@ body {
 
 .featurette {
     overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .featurette-image.pull-left {
