@@ -12,17 +12,17 @@ $(document).ready(function () {
   audioSrc.connect(audioCtx.destination);
 
   // var frequencyData = new Uint8Array(analyser.frequencyBinCount);
-  var frequencyData = new Uint8Array(600);
+  var frequencyData = new Uint8Array(175);
 
-  var svgHeight = $(".header-image").height();
-  var svgWidth = $(".header-image").width();
-  var barPadding = '0.5';
+  var svgHeight = $(".full-width-content").height();
+  var svgWidth = $(".full-width-content").width();
+  var barPadding = '0';
 
   function createSvg(parent, height, width) {
     return d3.select(parent).append('svg').attr('height', height).attr('width', width);
   }
 
-  var svg = createSvg('.header-image', svgHeight, svgWidth);
+  var svg = createSvg('.full-width-content', svgHeight, svgWidth);
 
   // Create our initial D3 chart.
   svg.selectAll('rect')
@@ -51,7 +51,12 @@ $(document).ready(function () {
            return d;
         })
         .attr('fill', function(d) {
-           return 'rgb(' + d + ', 85, 15)';
+	if ( typeof eqLineColor !== 'undefined' ) {  
+           return eqLineColor;
+        }
+	else {
+	   return 'rgb(0, 0, 0)';
+        }
         });
   }
 
