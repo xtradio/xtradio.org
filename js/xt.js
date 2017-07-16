@@ -65,7 +65,7 @@ function nowplaying() {
     	    document.getElementById("title").innerHTML = title;
     	}
 
-	var img = 'https:' + data.image;
+	var img = 'https:' + data.image + '?callback=?';
     	if ( typeof data.remaining !== 'undefined' ) {
     	    reload = data.remaining * 1000 + 1000;
     	    setTimeout( "nowplaying()", reload )
