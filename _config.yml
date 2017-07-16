@@ -37,6 +37,9 @@ social:
   - url: "https://mixcloud.com/xtradio"
     icon: "mixcloud-icon.png"
     title: "XTRadio on Mixcloud"
+  - url: "https://github.com/xtradio"
+    icon: "github-icon.png"
+    title: "XTRadio Code on Github"
 # Exclude files
 exclude: ['README.md',
           'CODE_OF_CONDUCT.md',

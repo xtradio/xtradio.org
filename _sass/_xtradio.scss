@@ -1,19 +1,33 @@
+.full {
+  background: black no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+a {
+    color: black;
+}
+
 #draw,
 svg {
-    position: relative;
+    position: absolute;
+    bottom: 50px;
+    left: 0;
     z-index: 1;
-    top: -480px;
 }
 
 #trackdetails {
     padding: 0;
     z-index: 3;
-    background-color: rgba(255, 255, 255, 0.7);
     min-height: 250px;
+    padding-top: 50px;
 }
 
 #metadata {
     display: block;
+    padding-top: 25px;
 }
 
 #links {
@@ -25,7 +39,11 @@ svg {
 
 #controls {
     color: white;
-    font-size: 2em;
+    font-: 2em;
+}
+
+.full-width-content {
+    padding: 25px 0;
 }
 
 .header-image {
@@ -45,8 +63,7 @@ vertical-align {
 
 #artist {
     text-align: center;
-    color: #E9550F;
-    font-size: 2em;
+    font-size: 3em;
     margin-left: auto;
     margin-right: auto;
     padding-top: 1em;
@@ -55,17 +72,21 @@ vertical-align {
 }
 
 #artist a {
-    color: #E9550F;
     text-decoration: none;
+    color: inherit;
 }
 
 #title {
     position: relative;
-    color: #03789F;
     display: block;
-    font-size: 2.5em;
+    font-size: 3.5em;
     line-height: 1em;
     text-align: center;
+}
+
+#title a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .navbar-nav>li>a {
@@ -79,4 +100,9 @@ vertical-align {
     display: block;
     margin: 0 auto;
     /* margin-left: auto; margin-right: auto; */
+}
+
+.btn-responsive {
+    white-space: normal !important;
+    word-wrap: break-word;
 }
