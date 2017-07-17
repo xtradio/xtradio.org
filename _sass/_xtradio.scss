@@ -27,7 +27,7 @@ svg {
 
 #metadata {
     display: block;
-    padding-top: 25px;
+    padding-top: 75px;
 }
 
 #links {
@@ -62,12 +62,11 @@ vertical-align {
 }
 
 #artist {
+    font-family: "Lobster","Helvetica Neue",Helvetica,Arial,sans-serif;
     text-align: center;
-    font-size: 2.5em;
+    font-size: 2.7em;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 1em;
-    padding-bottom: 10px;
     line-height: 1em;
 }
 
@@ -77,11 +76,12 @@ vertical-align {
 }
 
 #title {
+    font-family: "Quicksand","Helvetica Neue",Helvetica,Arial,sans-serif;
     position: relative;
     display: block;
     font-size: 3em;
-    line-height: 1em;
     text-align: center;
+    margin-top: 10px;
 }
 
 #title a {
