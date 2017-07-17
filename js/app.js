@@ -14,9 +14,9 @@ $(document).ready(function () {
   // var frequencyData = new Uint8Array(analyser.frequencyBinCount);
   var frequencyData = new Uint8Array(175);
 
-  var svgHeight = $(".full-width-content").height();
+  var svgHeight = $(".full-width-content").height() * 2;
   var svgWidth = $(".full-width-content").width();
-  var barPadding = '0';
+  var barPadding = '1';
 
   function createSvg(parent, height, width) {
     return d3.select(parent).append('svg').attr('height', height).attr('width', width);
@@ -32,7 +32,10 @@ $(document).ready(function () {
      .attr('x', function (d, i) {
         return i * (svgWidth / frequencyData.length);
      })
-     .attr('width', svgWidth / frequencyData.length - barPadding / 2);
+     .attr('height', function(d) {
+        return d * 2;
+     })
+     .attr('width', svgWidth / frequencyData.length - barPadding);
 
   // Continuously loop and update chart with frequency data.
   function renderChart() {
@@ -45,10 +48,10 @@ $(document).ready(function () {
      svg.selectAll('rect')
         .data(frequencyData)
         .attr('y', function(d) {
-           return svgHeight - d;
+           return svgHeight - ( 2 * d ) ;
         })
         .attr('height', function(d) {
-           return d;
+           return d * 2;
         })
         .attr('fill', function(d) {
 	if ( typeof eqLineColor !== 'undefined' ) {  

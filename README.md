@@ -10,3 +10,4 @@ XTRadio.ORG - Main website
 * [Bootstrap 3 Player](https://github.com/iainhouston/bootstrap3_player)
 * [Chroma](https://gka.github.io/chroma.js)
 * [RGBaster](https://github.com/briangonzalez/rgbaster.js)
+* [music-frequency-d3](https://github.com/bignerdranch/music-frequency-d3)

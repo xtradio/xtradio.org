@@ -75,7 +75,7 @@ function nowplaying() {
             }
         document.getElementById("artist").innerHTML ='<a href="' + data.share + '" target="_blank">' + artist + '</a>';
         document.getElementById("title").innerHTML ='<a href="' + data.share + '" target="_blank">' + title + '</a>';
-        document.getElementById("albumart").innerHTML = '<img src="' + img + '" width=250 height=250 title="' + artist  + title + '" id="albumartImg"/>';
+        document.getElementById("albumart").innerHTML = '<img src="' + img + '" width=300 height=300 title="' + artist  + title + '" id="albumartImg"/>';
         document.getElementById("barSongInfo").innerHTML = '<a href="' + data.share + '" target="_blank">' + artist + ' - ' + title + length + '</a>';
 // Color Thief
 // Get main color from the albumart to use in navbar
