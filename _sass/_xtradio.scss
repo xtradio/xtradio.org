@@ -52,7 +52,7 @@ svg {
 
 #albumart {
     float: left;
-    width: 250px;
+    width: 350px;
     padding: 0px;
 }
 
@@ -63,7 +63,7 @@ vertical-align {
 
 #artist {
     text-align: center;
-    font-size: 3em;
+    font-size: 2.5em;
     margin-left: auto;
     margin-right: auto;
     padding-top: 1em;
@@ -79,7 +79,7 @@ vertical-align {
 #title {
     position: relative;
     display: block;
-    font-size: 3.5em;
+    font-size: 3em;
     line-height: 1em;
     text-align: center;
 }
@@ -89,10 +89,20 @@ vertical-align {
     color: inherit;
 }
 
-.navbar-nav>li>a {
-    font-size: 1.2em;
-    padding-top: 1.3em;
-    padding-bottom: 0.5em;
+.navbar-brand {
+    padding-top: 1px;
+    padding-left: 15px;
+}
+
+.nav>li>a {
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.navbar-right {
+    padding-right: 15px;
 }
 
 .col-center-block {

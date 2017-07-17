@@ -40,6 +40,9 @@ social:
   - url: "https://github.com/xtradio"
     icon: "github-icon.png"
     title: "XTRadio Code on Github"
+  - url: "mailto:contact@xtradio.org"
+    icon: "email-icon.png"
+    title: "Email Us"
 # Exclude files
 exclude: ['README.md',
           'CODE_OF_CONDUCT.md',
