@@ -1,7 +1,7 @@
 FROM jekyll/jekyll:latest
-LABEL maintainer="XTRadio Ops<contact@xtradio.org> \
+LABEL maintainer="XTRadio Ops<contact@xtradio.org>" \
       version="1" \
-      description="XTRadio.org main website
+      description="XTRadio.org main website"
 
 RUN apk update
 RUN apk add git
