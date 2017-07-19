@@ -1,7 +1,7 @@
 # xtradio.org
 XTRadio.ORG - Main website
 
-[![Build Status](https://travis-ci.org/xtradio/xtradio.org.svg?branch=master)](https://travis-ci.org/xtradio/xtradio.org)
+[![Build Status](https://travis-ci.org/xtradio/xtradio.org.svg?branch=master)](https://travis-ci.org/xtradio/xtradio.org) [![Docker Repository on Quay](https://quay.io/repository/xtradio/xtradio.org/status "Docker Repository on Quay")](https://quay.io/repository/xtradio/xtradio.org)
 
 ## Software used to build the website
 
