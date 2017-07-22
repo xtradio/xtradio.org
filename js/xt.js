@@ -8,7 +8,9 @@ var eqLineColor = "rgb(0, 0, 0)";
 }
 
 function nowplaying() {
-    $.getJSON('https://xtradio.org/API/np.php', function (data) {
+    $.getJSON('https://api.xtradio.org/v1/np', function (apiData) {
+        for (key in apiData) {
+        data = (apiData[key]);
 
         if ( typeof data.song !== 'undefined' || data.song !== oldTitle ) {
             if ( data.song === oldTitle ) { 
@@ -65,7 +67,7 @@ function nowplaying() {
     	    document.getElementById("title").innerHTML = title;
     	}
 
-	var img = 'https:' + data.image + '?callback=?';
+	var img = data.image + '?callback=?';
     	if ( typeof data.remaining !== 'undefined' ) {
     	    reload = data.remaining * 1000 + 1000;
     	    setTimeout( "nowplaying()", reload )
@@ -97,7 +99,7 @@ function nowplaying() {
         });
         }
     }
-
+}
 });
 
 if ( typeof durVar === 'undefined' ) {
