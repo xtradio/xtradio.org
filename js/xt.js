@@ -90,6 +90,7 @@ function nowplaying() {
 		console.log(chroma(secondaryColor, 'hex'));
 		$(".full").css('background-color', secondaryColor);
 		$("#metadata").css('color', payload.dominant);
+		$("meta[name=theme-color]").attr('content', secondaryColor);
                 console.log('Dominant color:', payload.dominant);
                 console.log('Secondary color:', payload.secondary);
                 console.log('Palette:', payload.palette);
