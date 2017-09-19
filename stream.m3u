@@ -1,0 +1,9 @@
+#EXTM3U
+#EXTINF:-1,320kbps/MP3/Stereo - XTRadio.ORG - We Love Music! Do You!? - Follow Us @XTRadioOfficial
+https://xtrad.io:8080/high.mp3
+#EXTINF:-1,192kbps/MP3/Stereo - XTRadio.ORG - We Love Music! Do You!? - Follow Us @XTRadioOfficial
+https://xtrad.io:8080/mid.mp3
+#EXTINF:-1,128kbps/MP3/Stereo - XTRadio.ORG - We Love Music! Do You!? - Follow Us @XTRadioOfficial
+https://xtrad.io:8080/low.mp3
+#EXTINF:-1,32kbps/AAC/Stereo - XTRadio.ORG - We Love Music! Do You!? - Follow Us @XTRadioOfficial
+https://xtrad.io:8080/aac

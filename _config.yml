@@ -13,10 +13,10 @@ kramdown:
 
 # XTRadio links
 social:
-  - url: "http://xtradio.org:8080/live.m3u"
+  - url: "/stream.m3u"
     icon: "winamp-icon.png"
     title: "Download playlist file"
-  - url: "http://xtradio.org/stream.m3u"
+  - url: "/stream.m3u"
     icon: "itunes-icon.png"
     title: "Open Radio in iTunes"
   - url: "https://tunein.com/radio/XTRadio-s182867/"
@@ -47,6 +47,7 @@ social:
 exclude: ['README.md',
           'CODE_OF_CONDUCT.md',
           'docker-compose.yml',
+          'Dockerfile',
           'LICENSE',
           '.travis.yml',
           'Gemfile',
