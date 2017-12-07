@@ -6,11 +6,11 @@ LABEL maintainer="XTRadio Ops <contact@xtradio.org>" \
 RUN apk update
 RUN apk add git
 
-WORKDIR /tmp
+RUN git clone https://github.com/xtradio/xtradio.org /srv/xtradio
 
-RUN git clone https://github.com/xtradio/xtradio.org
+WORKDIR /srv/xtradio
 
-WORKDIR /tmp/xtradio.org
+RUN chown -R jekyll.jekyll /srv/xtradio
 
 CMD jekyll build --destination /srv/jekyll/_site
 CMD jekyll serve
