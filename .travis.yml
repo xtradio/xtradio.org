@@ -2,12 +2,13 @@ language: ruby
 rvm:
 - 2.3.3
 before_script:
-  - wget https://github.com/tdewolff/minify/releases/download/v${MINIFY_VERSION}/minify_2.3.4_linux_amd64.tar.gz
-  - tar xvzf minify_${MINIFY_VERSION}_linux_amd64.tar.gz minify
-  - ./minify -o jekyll/js/site.min.js jekyll/js
-  - ./minify -o jekyll/js/main.css jekyll/css
-  - rm -rf jekyll/js/app.js jekyll/js/bootrap3_player.js jekyll/js/rgbaster.min.js jekyll/js/xt.js jekyll/css/bootstrap3_player.css jekyll/css/one-page-wonder.css jekyll/css/xtradio.css
-  - chmod +x ./tests/cibuild.sh
+- wget https://github.com/tdewolff/minify/releases/download/v${MINIFY_VERSION}/minify_2.3.4_linux_amd64.tar.gz
+- tar xvzf minify_${MINIFY_VERSION}_linux_amd64.tar.gz minify
+- "./minify -o jekyll/js/site.min.js jekyll/js"
+- "./minify -o jekyll/js/main.css jekyll/css"
+- rm -rf jekyll/js/app.js jekyll/js/bootrap3_player.js jekyll/js/rgbaster.min.js jekyll/js/xt.js
+  jekyll/css/bootstrap3_player.css jekyll/css/one-page-wonder.css jekyll/css/xtradio.css
+- chmod +x ./tests/cibuild.sh
 script: "./tests/cibuild.sh"
 branches:
   only:
@@ -22,15 +23,13 @@ env:
 notifications:
   email: false
   slack:
-    on_success: always
-    on_failure: always
-    secure: QGX/KihrhG2fi1PkvXimOjhXbUVF1PNCzqPqz/zTfbOga6O08G8MkW72VBWHkqhI7uWteJB3Pj0nMNGH9+/5pHBSlzwohz6zbetHypt0S7UFjH4Yc8aXQXAWO5Z7NKTCDaIW3E+uPuigODy84xOf21dzl08xNOOWx2xMHA53iXOG4ceX3faAM6kQCTCIPrxqFRiXKwn1HDWa7BjYGdYgQZzI6/6TWBsc0K+phvqVRQ0zGDQh84e0oOLhNxNUMvt6q0CCiLOQC6mTMEPmpESRkcBgNj/s9wEcKHnfTRcoLne6UFdoHCOOTbUSavZnTo2AkIvpbK6uwTZHz/J7A0EEkTNbwQgBgFpYcG4vRX5MWmHXnusIHh5GkNLzTmR9Xsdv24xsuA0D8XFXGDYvuqobVkbd4PivuCAqvn5ynHzqQWepr4sx6Atx+q2aArm1g0Rrk01XoTlL3sW1SgP7vbdUnPe/PNgMMOA27yWjAbOByXGrteKTy5ZeFEoIvIhWhWO9d2Tho3pQbpwDfG/PlLXwWj3PdeEc5njDCAWI2xhzpI53JQe+cwslMzO0xPFrCZP9nfyf0yukHmyJ+hmkSh8nLuUtpxKFBq+NkTZTtGH9cfFg8TwoT2m6PVT55BEPsTLNeB7lTS0eNr4Sh7AX+IKYCDKa2+4OyaAKWy+lN2HzZ9E=
+    secure: wiWFrSYLOp/UGHFpemvQTwZ87WclsdriRbyDWYmCysH1kmtHikh9hSIHWmHdiot5giUwLe9KPKkEMRLnUfgNg47h4cLogPluL01c3mgXM4Vt1uH2ZIKEwh2ezzMJAgKWNV56zOcUEldWRtBYIQXVfVcpcjydeTnRdjSmE14d4cJOQWAb3ysBdCJ0u/iP3YPrLTC+64mXtFYqE4CytL6koPvVLd4Nz8tOaih7Egv0I1PbWGROnolOnyHtq8PHiDcixBqJ9sktaamq8ImLolnRMQCNW3mmCZGysEPdbHcoGIIfIxo0D1P4uDFlZqzCsI3eRC0Q0i3vZfF/ha+fBCTaU2mLnjd5a1ABvZpncljpjbrXR1hflwsFrSHai8wuH2WGt7QVwfsWe8D9RbdeP39lq6DM1QFMV3izmJ0t2c+54j5ksHcqCbH/3dWtI3DJIweNa/I9A6/2YNkccX27eVkXqW5zco8ULz7CB1SD6L+hzcJAng1U0T3i6ecclrIfhfDZn3eE+8ktX2mvX+o39UZjsOHwcFZcJ54nXr+sv6Qo06EXEhtWlOcg+BQGH6F3b+slpHpi9DjDP7vviIoAaMVNrfmXXKfFYjqQhX3bhQIwbXOmVsh7Try6pGOEVhZp09s8VJA3PVYdLtWgsVexNZRIZd5UDKbNPHa1TOR3Ejb2HmM=
 after_success:
-  - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
-  - export REPO=xtradio/xtradio.org
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH;
-    fi`
-  - docker build -f Dockerfile -t $REPO:latest .
-  - docker tag $REPO:$COMMIT $REPO:$TAG
-  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-  - docker push $REPO
+- docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+- export REPO=xtradio/xtradio.org
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH;
+  fi`
+- docker build -f Dockerfile -t $REPO:latest .
+- docker tag $REPO:$COMMIT $REPO:$TAG
+- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+- docker push $REPO
