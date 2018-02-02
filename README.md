@@ -1,7 +1,11 @@
 # xtradio.org
 XTRadio.ORG - Main website
 
-[![Build Status](https://travis-ci.org/xtradio/xtradio.org.svg?branch=master)](https://travis-ci.org/xtradio/xtradio.org) [![Docker Repository on Quay](https://quay.io/repository/xtradio/xtradio.org/status "Docker Repository on Quay")](https://quay.io/repository/xtradio/xtradio.org)
+[![Build Status](https://travis-ci.org/xtradio/xtradio.org.svg?branch=master)](https://travis-ci.org/xtradio/xtradio.org)
+
+## Explanation
+
+For local development/testing run `docker-compose up -d`, this will start the container on local port 4000. The automatic build runs minify against the css and js files, the local build leaves the files intact without touching them. This is all done through the [Jekyll environment flag](https://jekyllrb.com/docs/configuration/#specifying-a-jekyll-environment-at-build-time).
 
 ## Software used to build the website
 
@@ -11,3 +15,7 @@ XTRadio.ORG - Main website
 * [Chroma](https://gka.github.io/chroma.js)
 * [RGBaster](https://github.com/briangonzalez/rgbaster.js)
 * [music-frequency-d3](https://github.com/bignerdranch/music-frequency-d3)
+
+## Build tools
+
+* [minify](https://github.com/tdewolff/minify)

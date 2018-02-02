@@ -1,10 +1,13 @@
 language: ruby
 rvm:
 - 2.3.3
-addons:
-  ssh_known_hosts: xtradio.org
 before_script:
-- sudo apt-get install -y -q sshpass
+- wget https://github.comtdewolff/minify/releases/download/v$MINIFY_VERSION/minify_$MINIFY_VERSION_linux_amd64.tar.gz
+- tar xvzf minify_$MINIFY_VERSION_linux_amd64.tar.gz minify
+- "./minify -o jekyll/js/site.min.js jekyll/js"
+- "./minify -o jekyll/js/main.css jekyll/css"
+- rm -rf jekyll/js/app.js jekyll/js/bootrap3_player.js jekyll/js/rgbaster.min.js jekyll/js/xt.js
+  jekyll/css/bootstrap3_player.css jekyll/css/one-page-wonder.css jekyll/css/xtradio.css
 - chmod +x ./tests/cibuild.sh
 script: "./tests/cibuild.sh"
 branches:
@@ -12,14 +15,23 @@ branches:
   - master
 env:
   global:
+  - MINIFY_VERSION=2.3.4
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-  - secure: qaZQVdQN5H+k2PhF90Pwcf/wJPuUuOgj280ZA6Lus/37L61W5V33gb/i9QixK9NkGi/WhB5NP2q9uBCcHJ0gl+D5tTfaC9OR2SRoTtVZe75NXy6CIWiP4D1JCLGDsVImKrsY7bq7lk/5gUV0TtnEWogi6EaQpMEuckme/6SWekdsTJ7wJHHf+06asHtJu5baNySIQ++YlSQoEBK1wpDaG8ui1EXOhaFaCtUDbVvnmFI/3rOXW3QyMZDPyPq8ws9xirwx7m4F1uXe1b+h5D9D5Gq9LikmQwKb/ae5WeWL+RRUDij6uuF+IRALYtLCft+WNdcZtK0WV1J4edDzPtGTyjCicRApLwYWSYaJIYIFI7nxfj/MoHoga9g7hSoXGLlWp+dLckqEE7k7XwNx5CpSSm/6czXePo1jaacHrpNUv5BOQW3sYf/Spzo+c4OlOBfHDTHO519OIsBowyrKXZjQlM0jRHeUPcrBnRh1yPNooENZz/CFIkwvdgwhW9fMjuTx7pYnSzj9Uny0YslIYP1WjKTXmQWGTtmu8CYv0JsfNADVqGmX/fiiJFd/+WxN5DxEQOZqmKs9QzHk8JPPjk/E6/ss13K3aqLaX4gVLfcVFuy64W1aAm/cZ0cuIKlpsN5+eHyWv6pMUv/hotPKa94K3e0F+M2GQoQwM3kgpbSFliI=
-  - secure: DAMH9MF7Qamyt3Sri6k8/yJ2GPtoIUylLmu+mntxBo07tYp9CzqwJsR8+4LdQKQJ0V7Ew8S23bq+DHayAg8mi8gPnDoNdaBbarBlNLY+2H4oDdQ4Bo04lIIFpRVTKd9CYMF5y9aQvNRHTYfibtEH8vRztfeNXCfAOz0S6UcYfs5yo0LLZmee4ybRGoJhjrVSlbfNFnIPWlxLkvPdyLM0ufBM2VvpMxrjxHxuty4XDvfuGj6JecRfFu0vVBvgbv0s503WQl+FALNtYZ1WP/W4h9QYGghQc/jEAvQFc/WxJj2nT7GIgM19QuqEi28YYHM8ARQFVpwmpdKosDOa4+eUxAAFeEXGPvSJMy+N3RCc3dBhXf0FruZfzathD6kpz7GIWyABnW/gnzWekh9mvc2O3oCDMk5UZVekhlO0ZugYWzsqlMV4Rsks8ZEBnTGs9pfnBjGOjud4aNCpxJ0dTS6tMSeFor2G7cWDalrOuwFtTJ2oB7XSilT94t4ONCtOf7SZaFo6BYYhzugakuX+hlTHwH7L4DlTGiC7vFVptf9A5d6yGEKHN+NUeWuRdHSwVEKrAglCSXfwX1gAzp7xjZDAAungwhWHPg3M7sWwSjZfjmnWz6lN5IeRswEpZSAqIT8552LZ9S1f6RW+ZxVGrTprW43advfmpgWvsx3xEjznk1U=
+  - COMMIT=${TRAVIS_COMMIT::8}
+  - secure: DzJxGjRNKnCo+HmRUhiVmQ3BUI25t3LtbOx/b1LVoDJ8RDtYmBreR+EQaLOH6jF7PLw8ou5u+3ovaOcvpapDGpZBRJ7rbIw6U5Qqc4Gay5Kg1X0B9rtwV7x2CJHRM0ZHArS3nMafRks0hYctehbxJxjo2jH4fL2Eh70Hy6hXqVQmcf5yCsAUwWBYk1+p6DjhQtEGs/qVsdtmlKCSS2F2rKf6O1OjPSyKg4lVR6v+n0ijLHJcyvhhmV/HFlZchBhZyO1nosYZC8oBdG+wDMiZEai5PcIp/7gF58vWWacxYJH2aMS7WY5A0ayg8xsTwXtfg/ZOPOCCuI8qnZCu8yB2Liu2gOTKfeCNTOv1zGqV74PE0pcbOgopqt8Ayem/eHwyDVMntWrxbyx7gKhkgZ6atoqxHwUTdHmq8909AdbW1jmAisW6v2M68KS6mYtV0isnbE2SLYrd6S6d9iLeJZ+5uQ8AJV+2uFo2tSS20WqCu2A0j7OAQXPuMO3FQkRpG1PKJyVJJ1YhYDlvMbszN9VaX0TnQ5Ti0YoKvlWFMF52W3cQY3GeHUTNZruaaQyIDmZEjxNeG4EyDdPJZJjpRiR9sEojfsJeYXENqdHlQTsDuiYNfiv2zAP3L6wJ9BsU0PKgCYVlM/yHRp0+J24F5jvSMSRbVDwSTCYkk0v+EbZZ0BE=
+  - secure: mWEp/IkVhc9K4jdphYGqvdwQXmJ0b/zgbrP3La1Jb41HJHoCNf1HUerZlavPLKLKVvd1wxC0K0UdSG1BVAKcxDbPCiZ5xsjPm7wcGtw1fl/QgiDtm4K/nm30XwjpYFlEq3DvOmXgMh3xPaOt/5Z9ba5AjVqxtQiDgM1uVvCOzjpnhcDGAnITjbFofgjH1zH62k484cTUYjZzSRQ9Pm2F+PSojouIbhYeS5lXA19jE3JDFDmUj2pLQVY0joZWMjq4oFJ6KxMgKN6tVwSRkTuYK0mNAiaqFrn3/zRKk2YCdv9ifar5LkrBwN65aCH9utgho/UiRubxQtoIdWCbamBTkfMgmMlc3sv8Zk7rmKQZfSZ/i54QCWREfBw2FFamY6iIlIrOXL3TeuuGsqJfBZHTwp1ekMfSaT/zxSqzlKvnVd1/N+QfMQm4/Ek5+a5wcCNAhaEHTW9Cwd5Q1p2g/VzLIgCIWLA34d6CAtTL12oH++Plv6zhR2yIgtGrE86X1ZEO++XYcxycr4a+yg9Yh4WM3/CDG0A2LzhT9zpBrKsbnC8bMIbvXqXdvxDK7ixxgt0BNiycy8kPbezcasT+1+TwW4IaI6n1sESrlupKS9hX5t+Wfc9MhnNXFnOcHbr+OsArSdCdvmTpO/IJrwYkR+Ta7JQ5c0qf11r9/mus6iD9Gms=
 notifications:
   email: false
   slack:
     on_success: always
     on_failure: always
-    secure: 0Toa67ZJrxFt3nJMFuUVO4tyB32Kj8hQ3MwDqGgGvqUNUM2R1/EQJtEmHqJMqvQ9X5I4J3vnfSVr815W3y7Mh9WBkr/sgTumlDo2nLwrQAYuFVd0yimuDKmOJ5ZgQA6W7vcECQ8wqLfDOA14RPXIg//mHAgCeI5dj/SfUYq5LsmFpoJj5SndrrKp1KMIcfkPqKDws8GmCxDe5B4ztJriQmuVa8wWYlxluGhn/2r6NbaIGJ9NarcSkpbTHUkh5qv5OZD4JQ2bu6s7S/RqYpHVe52RONDjTHkec+uwcjq+rU5W7/fB91QRUAM5qDmM1sfuauTa8KsUWTKbkByKxckZnFqvaUhK8dQmr+M9RnKns7mVkGq1p+GSGi2chVKvF15cZdVsF6qO6WR1R6khkDZLbSaU5eLljIg3flFMzHsDujmuqv7TgWXeFpO99vXUKoJEbyPxEur7gZpMXAIP6IoNns3kYdVY3xkmWQIUgUouefc4kBam46zppWaHfFinZ4u0NB+Cy6XzrKbJbboi99dmL5XDgUCouVh8701z9k5rpj7NowqNE13/dooXhc76dn9cYU7SrAFgGqy0RkzKNs2Yhqhvhf8PiTQwhah9ujbygIE6QLfwhydVbZr32EBrgqVMp4JYkVK31XfeuGLkVA9Oq2pyNJg+RqvgfCgDfKk2hWg=
+    secure: QGX/KihrhG2fi1PkvXimOjhXbUVF1PNCzqPqz/zTfbOga6O08G8MkW72VBWHkqhI7uWteJB3Pj0nMNGH9+/5pHBSlzwohz6zbetHypt0S7UFjH4Yc8aXQXAWO5Z7NKTCDaIW3E+uPuigODy84xOf21dzl08xNOOWx2xMHA53iXOG4ceX3faAM6kQCTCIPrxqFRiXKwn1HDWa7BjYGdYgQZzI6/6TWBsc0K+phvqVRQ0zGDQh84e0oOLhNxNUMvt6q0CCiLOQC6mTMEPmpESRkcBgNj/s9wEcKHnfTRcoLne6UFdoHCOOTbUSavZnTo2AkIvpbK6uwTZHz/J7A0EEkTNbwQgBgFpYcG4vRX5MWmHXnusIHh5GkNLzTmR9Xsdv24xsuA0D8XFXGDYvuqobVkbd4PivuCAqvn5ynHzqQWepr4sx6Atx+q2aArm1g0Rrk01XoTlL3sW1SgP7vbdUnPe/PNgMMOA27yWjAbOByXGrteKTy5ZeFEoIvIhWhWO9d2Tho3pQbpwDfG/PlLXwWj3PdeEc5njDCAWI2xhzpI53JQe+cwslMzO0xPFrCZP9nfyf0yukHmyJ+hmkSh8nLuUtpxKFBq+NkTZTtGH9cfFg8TwoT2m6PVT55BEPsTLNeB7lTS0eNr4Sh7AX+IKYCDKa2+4OyaAKWy+lN2HzZ9E=
 after_success:
-  - "sshpass -p $ssh_pass rsync -avz --rsh='ssh -p$ssh_port' --delete _site/* travis@xtradio.org:/var/www/DEPLOYMENT/"
+- docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+- export REPO=xtradio/xtradio.org
+- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH;
+  fi`
+- docker build -f Dockerfile -t $REPO:latest .
+- docker tag $REPO:$COMMIT $REPO:$TAG
+- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+- docker push $REPO
