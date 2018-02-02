@@ -2,4 +2,4 @@
 set -e # halt script on error
 
 bundle exec jekyll build
-bundle exec htmlproofer ./jekyll/_site --disable-external
+bundle exec htmlproofer ./srv/xtradio/_site --disable-external

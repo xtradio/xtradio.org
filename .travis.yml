@@ -6,7 +6,7 @@ before_script:
 - tar xvzf minify_${MINIFY_VERSION}_linux_amd64.tar.gz minify
 - "./minify -o jekyll/js/site.min.js jekyll/js"
 - "./minify -o jekyll/css/main.css jekyll/css"
-- rm -rf jekyll/js/app.js jekyll/js/bootrap3_player.js jekyll/js/rgbaster.min.js jekyll/js/xt.js
+- rm -rf jekyll/js/app.js jekyll/js/bootrap3_player.js jekyll/js/rgbaster.min.js jekyll/js/xt.js jekyll/js/bootstrap3_player.js
   jekyll/css/bootstrap3_player.css jekyll/css/one-page-wonder.css jekyll/css/xtradio.css
 - chmod +x ./tests/cibuild.sh
 script: "./tests/cibuild.sh"
