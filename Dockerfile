@@ -8,5 +8,5 @@ WORKDIR /srv/xtradio
 
 RUN chown -R jekyll.jekyll /srv/xtradio
 
-CMD JEKYLL_ENV=production jekyll build --destination /srv/jekyll/_site
+CMD JEKYLL_ENV=production jekyll build
 CMD jekyll serve
