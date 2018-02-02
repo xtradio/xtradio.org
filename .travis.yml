@@ -2,7 +2,7 @@ language: ruby
 rvm:
 - 2.3.3
 before_script:
-  - wget https://github.comt/dewolff/minify/releases/download/v${MINIFY_VERSION}/minify_${MINIFY_VERSION}_linux_amd64.tar.gz
+  - wget https://github.com/tdewolff/minify/releases/download/v${MINIFY_VERSION}/minify_2.3.4_linux_amd64.tar.gz
   - tar xvzf minify_${MINIFY_VERSION}_linux_amd64.tar.gz minify
   - ./minify -o jekyll/js/site.min.js jekyll/js
   - ./minify -o jekyll/js/main.css jekyll/css
