@@ -6,8 +6,7 @@ before_script:
 - tar xvzf minify_${MINIFY_VERSION}_linux_amd64.tar.gz minify
 - "./minify -o jekyll/js/site.min.js jekyll/js"
 - "./minify -o jekyll/css/main.css jekyll/css"
-- rm -rf jekyll/js/app.js jekyll/js/bootrap3_player.js jekyll/js/rgbaster.min.js jekyll/js/xt.js jekyll/js/bootstrap3_player.js
-  jekyll/css/bootstrap3_player.css jekyll/css/one-page-wonder.css jekyll/css/xtradio.css
+- rm -rf jekyll/js/app.js jekyll/js/bootrap3_player.js jekyll/js/rgbaster.min.js jekyll/js/xt.js jekyll/js/bootstrap3_player.js jekyll/css/bootstrap3_player.css jekyll/css/one-page-wonder.css jekyll/css/xtradio.css
 - chmod +x ./tests/cibuild.sh
 script: "./tests/cibuild.sh"
 branches:
@@ -19,7 +18,7 @@ env:
   - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - COMMIT=${TRAVIS_COMMIT::8}
   - secure: DzJxGjRNKnCo+HmRUhiVmQ3BUI25t3LtbOx/b1LVoDJ8RDtYmBreR+EQaLOH6jF7PLw8ou5u+3ovaOcvpapDGpZBRJ7rbIw6U5Qqc4Gay5Kg1X0B9rtwV7x2CJHRM0ZHArS3nMafRks0hYctehbxJxjo2jH4fL2Eh70Hy6hXqVQmcf5yCsAUwWBYk1+p6DjhQtEGs/qVsdtmlKCSS2F2rKf6O1OjPSyKg4lVR6v+n0ijLHJcyvhhmV/HFlZchBhZyO1nosYZC8oBdG+wDMiZEai5PcIp/7gF58vWWacxYJH2aMS7WY5A0ayg8xsTwXtfg/ZOPOCCuI8qnZCu8yB2Liu2gOTKfeCNTOv1zGqV74PE0pcbOgopqt8Ayem/eHwyDVMntWrxbyx7gKhkgZ6atoqxHwUTdHmq8909AdbW1jmAisW6v2M68KS6mYtV0isnbE2SLYrd6S6d9iLeJZ+5uQ8AJV+2uFo2tSS20WqCu2A0j7OAQXPuMO3FQkRpG1PKJyVJJ1YhYDlvMbszN9VaX0TnQ5Ti0YoKvlWFMF52W3cQY3GeHUTNZruaaQyIDmZEjxNeG4EyDdPJZJjpRiR9sEojfsJeYXENqdHlQTsDuiYNfiv2zAP3L6wJ9BsU0PKgCYVlM/yHRp0+J24F5jvSMSRbVDwSTCYkk0v+EbZZ0BE=
-  - secure: mWEp/IkVhc9K4jdphYGqvdwQXmJ0b/zgbrP3La1Jb41HJHoCNf1HUerZlavPLKLKVvd1wxC0K0UdSG1BVAKcxDbPCiZ5xsjPm7wcGtw1fl/QgiDtm4K/nm30XwjpYFlEq3DvOmXgMh3xPaOt/5Z9ba5AjVqxtQiDgM1uVvCOzjpnhcDGAnITjbFofgjH1zH62k484cTUYjZzSRQ9Pm2F+PSojouIbhYeS5lXA19jE3JDFDmUj2pLQVY0joZWMjq4oFJ6KxMgKN6tVwSRkTuYK0mNAiaqFrn3/zRKk2YCdv9ifar5LkrBwN65aCH9utgho/UiRubxQtoIdWCbamBTkfMgmMlc3sv8Zk7rmKQZfSZ/i54QCWREfBw2FFamY6iIlIrOXL3TeuuGsqJfBZHTwp1ekMfSaT/zxSqzlKvnVd1/N+QfMQm4/Ek5+a5wcCNAhaEHTW9Cwd5Q1p2g/VzLIgCIWLA34d6CAtTL12oH++Plv6zhR2yIgtGrE86X1ZEO++XYcxycr4a+yg9Yh4WM3/CDG0A2LzhT9zpBrKsbnC8bMIbvXqXdvxDK7ixxgt0BNiycy8kPbezcasT+1+TwW4IaI6n1sESrlupKS9hX5t+Wfc9MhnNXFnOcHbr+OsArSdCdvmTpO/IJrwYkR+Ta7JQ5c0qf11r9/mus6iD9Gms=
+  - secure: idgJEmsLz1BrkNV+mKZjP05KPk3ju61OrbSLznaOftv98LGNmCgo6MsX9oVREsjjQsB5xPd0C3Od0DrcXwYUxppvS/WYRcFzz0aoO3btxNCNzK5Th/gYE48LK2cE+mvubN3WZQXt3uk/gCccFSNudFeR0L8mQIfv6r84IuOoJHyIjLBg0K9YUOYevyoFuc0X2jOqfMGRu5LOVT36flctVqslnwx8xHcLLFCvL026hdWHTF55EgTVmPJLElJY0jk2zrwFTjlmRMUSVaTLC2xkrAb1v3DVTEyj6ps5RK78DiagBrlNdjKKV74u3tO7OwiMTr6DoX5VZ4OEb+BeM6J0OykBnwxV07l7uSS/b+tWMMzCMnEb+jD97q+T2FeTtg1/TmADLKh8jsKjm/X35ScHIy6QlcH/GxMwNdkkNTEtXjI8V7H11xGt1TXsXcpi133KIUgMJwI281WD5t7DePMieIt59rjB2PaQ4MsiuTwWptaubGhekVQ/zgcxDOj5SKIBF5BCggDdVGSi6QWaCdxGIQfpzyNSmgCvpr3msWoT+Lbo4CrD8ETNJbcNA5AxgA9HQW59WrhmaVaTkqJ3QpK7XpKOkgag7fQPiC2Vxcjx+k7moIQ8GKCx1NnMc5BA7KANA3XlSlAD2iw/uYyiFuPEnCnpapGPBzL4Bfvgxm2m1r8=
 notifications:
   email: false
   slack:
