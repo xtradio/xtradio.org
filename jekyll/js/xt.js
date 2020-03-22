@@ -85,10 +85,11 @@ $(window).keypress(function(e) {
     if (e.which === 32) {
         var x = document.getElementById("audioElement");
 	if (x.paused) {
+		audioCtx.resume();
 		x.play();
 	}
 	else {
-                x.pause();
+		x.pause();
 	}
 	e.preventDefault();
     }

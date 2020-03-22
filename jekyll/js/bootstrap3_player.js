@@ -49,6 +49,7 @@
                 if (toggle === 'play') {
                     $(play).html('<i class="glyphicon glyphicon-play"></i>');
                     $(play).click(function () {
+                        audioCtx.resume();
                         song.play();
                     });
                 }

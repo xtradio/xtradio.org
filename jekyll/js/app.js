@@ -1,7 +1,9 @@
+var audioCtx;
 $(document).ready(function () {
   if (/Android|BlackBerry|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent) === false) {
-  var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  audioCtx = new (window.AudioContext)();
   var audioElement = document.getElementById('audioElement');
+//   console.log(audioCtx.state)
   audioElement.crossOrigin = "anonymous";
   var audioSrc = audioCtx.createMediaElementSource(audioElement);
   var analyser = audioCtx.createAnalyser();
