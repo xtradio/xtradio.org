@@ -1,4 +1,4 @@
-FROM jekyll/jekyll:latest
+FROM jekyll/jekyll:3.8.1
 LABEL maintainer="XTRadio Ops <contact@xtradio.org>" \
       description="XTRadio.org main website"
 
