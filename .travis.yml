@@ -17,6 +17,6 @@ script:
   - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
 
 after_success:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
   - docker push $REPO:$TAG
   - docker push $REPO:travis-$TRAVIS_BUILD_NUMBER
