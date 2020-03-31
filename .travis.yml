@@ -1,12 +1,7 @@
-language: ruby
-rvm:
-- 2.3.3
-branches:
-  only:
-  - master
+services:
+  - docker
 env:
   global:
-  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
   - COMMIT=${TRAVIS_COMMIT::8}
   - secure: DzJxGjRNKnCo+HmRUhiVmQ3BUI25t3LtbOx/b1LVoDJ8RDtYmBreR+EQaLOH6jF7PLw8ou5u+3ovaOcvpapDGpZBRJ7rbIw6U5Qqc4Gay5Kg1X0B9rtwV7x2CJHRM0ZHArS3nMafRks0hYctehbxJxjo2jH4fL2Eh70Hy6hXqVQmcf5yCsAUwWBYk1+p6DjhQtEGs/qVsdtmlKCSS2F2rKf6O1OjPSyKg4lVR6v+n0ijLHJcyvhhmV/HFlZchBhZyO1nosYZC8oBdG+wDMiZEai5PcIp/7gF58vWWacxYJH2aMS7WY5A0ayg8xsTwXtfg/ZOPOCCuI8qnZCu8yB2Liu2gOTKfeCNTOv1zGqV74PE0pcbOgopqt8Ayem/eHwyDVMntWrxbyx7gKhkgZ6atoqxHwUTdHmq8909AdbW1jmAisW6v2M68KS6mYtV0isnbE2SLYrd6S6d9iLeJZ+5uQ8AJV+2uFo2tSS20WqCu2A0j7OAQXPuMO3FQkRpG1PKJyVJJ1YhYDlvMbszN9VaX0TnQ5Ti0YoKvlWFMF52W3cQY3GeHUTNZruaaQyIDmZEjxNeG4EyDdPJZJjpRiR9sEojfsJeYXENqdHlQTsDuiYNfiv2zAP3L6wJ9BsU0PKgCYVlM/yHRp0+J24F5jvSMSRbVDwSTCYkk0v+EbZZ0BE=
   - secure: idgJEmsLz1BrkNV+mKZjP05KPk3ju61OrbSLznaOftv98LGNmCgo6MsX9oVREsjjQsB5xPd0C3Od0DrcXwYUxppvS/WYRcFzz0aoO3btxNCNzK5Th/gYE48LK2cE+mvubN3WZQXt3uk/gCccFSNudFeR0L8mQIfv6r84IuOoJHyIjLBg0K9YUOYevyoFuc0X2jOqfMGRu5LOVT36flctVqslnwx8xHcLLFCvL026hdWHTF55EgTVmPJLElJY0jk2zrwFTjlmRMUSVaTLC2xkrAb1v3DVTEyj6ps5RK78DiagBrlNdjKKV74u3tO7OwiMTr6DoX5VZ4OEb+BeM6J0OykBnwxV07l7uSS/b+tWMMzCMnEb+jD97q+T2FeTtg1/TmADLKh8jsKjm/X35ScHIy6QlcH/GxMwNdkkNTEtXjI8V7H11xGt1TXsXcpi133KIUgMJwI281WD5t7DePMieIt59rjB2PaQ4MsiuTwWptaubGhekVQ/zgcxDOj5SKIBF5BCggDdVGSi6QWaCdxGIQfpzyNSmgCvpr3msWoT+Lbo4CrD8ETNJbcNA5AxgA9HQW59WrhmaVaTkqJ3QpK7XpKOkgag7fQPiC2Vxcjx+k7moIQ8GKCx1NnMc5BA7KANA3XlSlAD2iw/uYyiFuPEnCnpapGPBzL4Bfvgxm2m1r8=
@@ -14,12 +9,15 @@ notifications:
   email: false
   slack:
     secure: wiWFrSYLOp/UGHFpemvQTwZ87WclsdriRbyDWYmCysH1kmtHikh9hSIHWmHdiot5giUwLe9KPKkEMRLnUfgNg47h4cLogPluL01c3mgXM4Vt1uH2ZIKEwh2ezzMJAgKWNV56zOcUEldWRtBYIQXVfVcpcjydeTnRdjSmE14d4cJOQWAb3ysBdCJ0u/iP3YPrLTC+64mXtFYqE4CytL6koPvVLd4Nz8tOaih7Egv0I1PbWGROnolOnyHtq8PHiDcixBqJ9sktaamq8ImLolnRMQCNW3mmCZGysEPdbHcoGIIfIxo0D1P4uDFlZqzCsI3eRC0Q0i3vZfF/ha+fBCTaU2mLnjd5a1ABvZpncljpjbrXR1hflwsFrSHai8wuH2WGt7QVwfsWe8D9RbdeP39lq6DM1QFMV3izmJ0t2c+54j5ksHcqCbH/3dWtI3DJIweNa/I9A6/2YNkccX27eVkXqW5zco8ULz7CB1SD6L+hzcJAng1U0T3i6ecclrIfhfDZn3eE+8ktX2mvX+o39UZjsOHwcFZcJ54nXr+sv6Qo06EXEhtWlOcg+BQGH6F3b+slpHpi9DjDP7vviIoAaMVNrfmXXKfFYjqQhX3bhQIwbXOmVsh7Try6pGOEVhZp09s8VJA3PVYdLtWgsVexNZRIZd5UDKbNPHa1TOR3Ejb2HmM=
-after_success:
-- docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
-- export REPO=xtradio/xtradio.org
-- export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH;
+script:
+  - export REPO=xtradio/xtradio.org
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH;
   fi`
-- docker build -f Dockerfile -t $REPO:latest .
-- docker tag $REPO:$COMMIT $REPO:$TAG
-- docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
-- docker push $REPO:$TAG
+  - docker build -f Dockerfile -t $REPO:latest .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push $REPO:$TAG
+  - docker push $REPO:$COMMIT
