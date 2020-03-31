@@ -11,8 +11,7 @@ notifications:
     secure: wiWFrSYLOp/UGHFpemvQTwZ87WclsdriRbyDWYmCysH1kmtHikh9hSIHWmHdiot5giUwLe9KPKkEMRLnUfgNg47h4cLogPluL01c3mgXM4Vt1uH2ZIKEwh2ezzMJAgKWNV56zOcUEldWRtBYIQXVfVcpcjydeTnRdjSmE14d4cJOQWAb3ysBdCJ0u/iP3YPrLTC+64mXtFYqE4CytL6koPvVLd4Nz8tOaih7Egv0I1PbWGROnolOnyHtq8PHiDcixBqJ9sktaamq8ImLolnRMQCNW3mmCZGysEPdbHcoGIIfIxo0D1P4uDFlZqzCsI3eRC0Q0i3vZfF/ha+fBCTaU2mLnjd5a1ABvZpncljpjbrXR1hflwsFrSHai8wuH2WGt7QVwfsWe8D9RbdeP39lq6DM1QFMV3izmJ0t2c+54j5ksHcqCbH/3dWtI3DJIweNa/I9A6/2YNkccX27eVkXqW5zco8ULz7CB1SD6L+hzcJAng1U0T3i6ecclrIfhfDZn3eE+8ktX2mvX+o39UZjsOHwcFZcJ54nXr+sv6Qo06EXEhtWlOcg+BQGH6F3b+slpHpi9DjDP7vviIoAaMVNrfmXXKfFYjqQhX3bhQIwbXOmVsh7Try6pGOEVhZp09s8VJA3PVYdLtWgsVexNZRIZd5UDKbNPHa1TOR3Ejb2HmM=
 script:
   - export REPO=xtradio/xtradio.org
-  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH;
-  fi`
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH; fi`
   - docker build -f Dockerfile -t $REPO:latest .
   - docker tag $REPO:$COMMIT $REPO:$TAG
   - docker tag $REPO:$COMMIT $REPO:travis-$TRAVIS_BUILD_NUMBER
