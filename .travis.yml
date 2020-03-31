@@ -1,5 +1,6 @@
 services:
   - docker
+language: minimal
 env:
   global:
   - COMMIT=${TRAVIS_COMMIT::8}
@@ -19,4 +20,4 @@ script:
 after_success:
   - docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
   - docker push $REPO:$TAG
-  - docker push $REPO:travis-$TRAVIS_BUILD_NUMBER
+  - docker push $REPO:$COMMIT
