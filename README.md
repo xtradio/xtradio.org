@@ -2,21 +2,37 @@
 XTRadio.ORG - Main website
 
 
-## Getting Started
+## Local development/testing
 
 ### Install dependencies
 
 ```bash
 npm i
 ```
-### Local development/testing
+
+### Run dev server
+
 
 ```bash
 npm start
 ```
 
-### Build
+### Build application
 
 ```bash
 npm run build
+```
+
+## Production build
+
+### Build docker image
+
+```bash
+sh ./build.sh
+```
+
+### Build and run docker image
+
+```bash
+docker-compose up -d
 ```
