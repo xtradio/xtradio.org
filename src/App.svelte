@@ -78,7 +78,6 @@
 
   let loader, background, image;
   async function imageLoaded(e) {
-    console.log(loader.width, loader.height);
     const palette = await Vibrant.from(loader, {quality: 1}).getPalette();
     colors.duotone = palette.Vibrant.rgb;
     colors.gradient = `rgba(${palette.Muted.rgb.join(', ')}, 0.3)`;

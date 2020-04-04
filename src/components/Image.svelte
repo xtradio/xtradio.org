@@ -21,6 +21,7 @@
 
     img {
         transition: opacity 1s ease-out;
+        object-fit: cover;
         @apply w-full h-full inset-0 absolute;
     }
 }
