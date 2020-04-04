@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import Controls from "./Controls.svelte";
+  import Visualizer from "./Visualizer.svelte";
 
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
@@ -14,7 +15,7 @@
   }
 
   const streamUrl = "https://xtrad.io:8443/";
-  let audio,
+  let audio, visualizer,
     volume = 1,
     quality = "low";
 
@@ -55,6 +56,7 @@
       "canplay",
       () => {
         dispatch("canplay");
+        visualizer.init(audio);
       },
       true
     );
@@ -65,5 +67,6 @@
   });
 </script>
 
+<Visualizer bind:this={visualizer} {colors}/>
 <audio bind:this={audio} class="hidden" controls crossorigin="anonymous" />
 <Controls {remaining} {duration} bind:volume bind:quality on:notify={notify} />
