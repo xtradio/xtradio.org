@@ -1,18 +1,17 @@
 <script>
-    export let spacing = 0.5, smoothing = 0.5, peaks = false, fftSize = 8192, colors;
+    export let spacing = 0.5, smoothing = 0.5, fftSize = 8192, colors;
 
-    let canvas, analyser, audioCtx, canvasCtx, animation, bgColor = 'transparent',
-        groupNotes  = 3, 
+    let canvas, container, analyser, audioCtx, canvasCtx, animation,
+        groupNotes  = 2, 
         minFreq     = 60, 
         maxFreq     = 12000, 
         barWidth    = 0,
         barSpacePx  = 0,
         analyzerBars = [],
         dataArray    = [],
-        width = 0, height = 0, initDone = false;
+        initDone = false;
 
     $: isOn = animation !== undefined;
-    $: showPeaks = peaks || false;
     $: barSpace = spacing || 2;
 
     export function init(audio) {
@@ -33,16 +32,12 @@
       analyser.maxDecibels = -25;
       analyser.fftSize = fftSize;
       dataArray = new Uint8Array( analyser.frequencyBinCount );
-      
-      width = canvas.width;
-      height = canvas.height;
 
       // analyser canvas
       canvasCtx = canvas.getContext( '2d', { alpha: true } );
 
       // adjust canvas on window resize
       window.addEventListener( 'resize', () => {
-        if ( ! width || ! height ) // fluid width or height
           setCanvas('resize');
       });
 
@@ -56,18 +51,14 @@
       if ( ! initDone )
         return;
 
-      let pixelRatio = 4;//window.devicePixelRatio; // for Retina / HiDPI devices
-      
       // Set correct pixel ratio
-      canvas.width = width * pixelRatio;
-			canvas.height = height * pixelRatio;
+      canvas.width = container.clientWidth * window.devicePixelRatio;
+			canvas.height =container.clientHeight * window.devicePixelRatio;
 
       // clear the canvas
-      canvasCtx.fillStyle = bgColor;
+      canvasCtx.fillStyle = 'transparent';
       canvasCtx.clearRect( 0, 0, canvas.width, canvas.height );
-      //canvasCtx.fillRect( 0, 0, canvas.width, canvas.height );
-
-      canvasCtx.lineJoin = 'bevel';
+      canvasCtx.fillRect( 0, 0, canvas.width, canvas.height );
 
       // calculate bar positions
       precalculateBarPositions();
@@ -75,9 +66,9 @@
 
     function draw() {
       // clear the canvas
-      canvasCtx.fillStyle = bgColor;
+      canvasCtx.fillStyle = 'transparent';
       canvasCtx.clearRect( 0, 0, canvas.width, canvas.height );
-      //canvasCtx.fillRect( 0, 0, canvas.width, canvas.height );
+      canvasCtx.fillRect( 0, 0, canvas.width, canvas.height );
 
       // get a new array of data from the FFT
       analyser.getByteFrequencyData( dataArray );
@@ -113,12 +104,6 @@
 
         barHeight = barHeight / 255 * canvas.height | 0;
 
-        if ( barHeight >= bar.peak ) {
-          bar.peak = barHeight;
-          bar.hold = 30; // set peak hold time to 30 frames (0.5s)
-          bar.accel = 0;
-        }
-
         let posX = bar.posX;
         let adjWidth = width; // bar width may need small adjustments for some bars, when barSpace == 0
 
@@ -134,20 +119,6 @@
         }
 
         canvasCtx.fillRect( posX, canvas.height, adjWidth, -barHeight );
-
-        // Draw peak
-        if ( bar.peak > 0 ) {
-          if ( showPeaks ) {
-            canvasCtx.fillRect( posX, canvas.height - bar.peak, adjWidth, 2 );
-          }
-
-          if ( bar.hold )
-            bar.hold--;
-          else {
-            bar.accel++;
-            bar.peak -= bar.accel;
-          }
-        }
       } // for ( let i = 0; i < l; i++ )
 
       animation = requestAnimationFrame( () => draw() );
@@ -215,10 +186,7 @@
 					endIdx,
           //freq, // nominal frequency for this band
           //range: [ this._findBinFrequency( idx ), this._findBinFrequency( endIdx || idx ) ], // actual range of frequencies
-					factor: 0,
-					peak: 0,
-					hold: 0,
-					accel: 0
+					factor: 0
 				} );
 
 			});
@@ -252,4 +220,6 @@
     }
 </script>
 
-<canvas bind:this={canvas} class="w-full h-40 max-w-full absolute bottom-0 mb-16 z-100"/>
+<div bind:this={container} class="w-full h-40 max-w-full absolute bottom-0 mb-16 z-40 opacity-75">
+  <canvas bind:this={canvas} class="relative max-w-full"/>
+</div>
