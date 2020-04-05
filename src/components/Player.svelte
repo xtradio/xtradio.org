@@ -10,7 +10,7 @@
     colors;
 
   export function init() {
-    load(quality);
+    load();
   }
 
   const streamUrl = "https://xtrad.io:8443/";
@@ -24,7 +24,7 @@
     dispatch("done");
   }
 
-  function load(quality) {
+  function load() {
     audio.src = `${streamUrl + quality}.mp3`;
     audio.load(); // This restarts the stream download
     audio.play();
@@ -35,7 +35,8 @@
 
     switch (type) {
       case "quality": // Load stream quality
-        load(quality);
+        quality = val;
+        load();
         break;
       case "mute": // Toggle muted state on audio
         volume = !audio.muted ? 0 : audio.volume;
