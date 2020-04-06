@@ -50,7 +50,7 @@
     tracks.loading = {
       song,
       artist,
-      image,
+      image: `${image}?${Date.now()}`,
       duration,
       remaining
     };
@@ -78,20 +78,14 @@
 
   let loader, background, image;
   async function imageLoaded(e) {
-    let palette = {};
-    
-    try {
-      palette = await Vibrant.from(loader, {quality: 1}).getPalette();
-    } catch (e) {
-      palette = await Vibrant.from(tracks.loading.image, {quality: 1}).getPalette();
-    }
+    let palette = await Vibrant.from(loader, {quality: 1}).getPalette();
     
     colors.duotone = palette.Vibrant.rgb;
     colors.gradient = `rgba(${palette.Muted.rgb.join(', ')}, 0.3)`;
     colors.visualizer = palette.Muted.hex;
 
     background.change(loader);
-    image.change(tracks.loading.image);
+    image.change(loader.src);
 
     tracks.current = {...tracks.loading};
   }
@@ -116,7 +110,7 @@ img.loader {
 <Background bind:this={background} colors={colors} />
 
 <!-- Dummy img tag used to get colors from image -->
-{#if loaded}
+{#if tracks.loading.image}
   <img bind:this={loader} class="loader" src={tracks.loading.image} on:load={imageLoaded} crossorigin="anonymous"/>
 {/if}
 
