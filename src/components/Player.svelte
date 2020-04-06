@@ -26,11 +26,12 @@
 
   function load() {
     audio.src = `${streamUrl + quality}.mp3`;
+    audio.volume = volume;
     audio.load(); // This restarts the stream download
     audio.play();
   }
 
-  function notify(event) {
+  function change(event) {
     const { type, val } = event.detail;
 
     switch (type) {
@@ -39,8 +40,16 @@
         load();
         break;
       case "mute": // Toggle muted state on audio
-        volume = !audio.muted ? 0 : audio.volume;
+        volume = !audio.muted ? 0 : audio.volume || 1;
+        if (!audio.volume) {
+          audio.volume = volume;
+        }
+        
         audio.muted = !audio.muted;
+        break;
+      case "volume": // Set audio volume
+        audio.volume = volume = val;
+        audio.muted = !val;
         break;
     }
   }
@@ -67,4 +76,4 @@
 </script>
 
 <audio bind:this={audio} class="hidden" controls crossorigin="anonymous" />
-<Controls {remaining} {duration} bind:volume bind:quality on:notify={notify} />
+<Controls {remaining} {duration} {volume} {quality} on:change={change}/>
