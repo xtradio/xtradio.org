@@ -54,12 +54,27 @@
     }
   }
 
+  function interval(delay, fn) {
+    let start = Date.now(), frame = requestAnimationFrame(loop);
+
+    return frame;
+
+    function loop() {
+      frame = requestAnimationFrame(loop);
+
+      if (Date.now() - start >= delay) {
+        fn();
+        start = Date.now();
+      }
+    }
+  }
+
   onMount(() => {
-    const interval = setInterval(() => {
+    const timer = interval(1000, () => {
       if (remaining >= 1) {
         remaining -= 1;
       }
-    }, 1000);
+    });
 
     audio.addEventListener(
       "canplay",
@@ -70,7 +85,7 @@
     );
 
     return () => {
-      clearInterval(interval);
+      cancelAnimationFrame(timer);
     };
   });
 </script>

@@ -6,7 +6,7 @@
     max = 0,
     dot = false;
 
-  $: progress = (100 * val) / max || 0;
+  $: progress = +(((100 * val) / max).toFixed(1)) || 0;
 
   let _slider, _dot, moving = false;
   function change(event) {

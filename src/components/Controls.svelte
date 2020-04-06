@@ -77,13 +77,13 @@
     </div>
   </div>
 
-  <div class="text-xs text-white opacity-75 mx-3 mr-4">
+  <div class="text-xs text-white opacity-75 w-8 mx-3 mr-4">
     {formatTime(currentTime)}
   </div>
 
   <Slider bind:val={currentTime} max={duration} />
 
-  <div class="text-xs text-white opacity-75 mx-3 ml-4">
+  <div class="text-xs text-white opacity-75 w-8 mx-3 ml-4">
     {formatTime(duration)}
   </div>
 
