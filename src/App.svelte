@@ -6,7 +6,7 @@
   import Player from "./components/Player.svelte";
   import Image from "./components/Image.svelte";
 
-  let player, loaded = false, loading = false,
+  let player, loaded = true, loading = false,
   tracks = {
     current: {
       song: "",
@@ -51,7 +51,7 @@
       const exists = tracks.recent.some((t) => t.song === tracks.current.song && t.artist === tracks.current.artist);
       if (!exists) {
         tracks.recent.unshift(tracks.current);
-        tracks.recent = tracks.recent.slice(0, 2);
+        tracks.recent = tracks.recent.slice(0, 3);
         localStorage.setItem('recentTracks', JSON.stringify(tracks.recent));
       }
     }
@@ -184,5 +184,5 @@ img.loader {
   duration={tracks.current.duration}
   remaining={tracks.current.remaining}
   colors={colors}
-  on:done={refresh}
+  on:done={() => refresh(false)}
   on:canplay={started} />
