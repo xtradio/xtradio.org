@@ -11,9 +11,8 @@
 
   $: currentTime = duration - remaining;
 
-  let flags = { volume: false };
   function notify(type, val) {
-    dispatch('notify', { type, val });
+    dispatch('change', { type, val });
   }
 </script>
 
@@ -56,16 +55,13 @@
     <div
       class="button"
       class:icon-volume-up={volume > 0.5}
-      class:icon-volume-down={volume > 0}
+      class:icon-volume-down={volume > 0 && volume <= 0.5}
       class:icon-volume-mute={volume <= 0}
-      on:click={() => notify('mute', 1)}
+      on:click={() => notify('mute')}
     />
-    {#if flags.volume}
-      <div class="popout w-40 px-5 hidden md:group-hover:flex">
-        <Slider bind:val={volume} max="1" dot />
-      </div>
-    {/if}
-    
+    <div class="popout w-40 px-5 hidden md:group-hover:flex">
+      <Slider val={volume} max="1" dot on:change={(e) => notify('volume', e.detail)} />
+    </div>
   </div>
 
   <div class="control group">

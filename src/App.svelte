@@ -78,7 +78,14 @@
 
   let loader, background, image;
   async function imageLoaded(e) {
-    const palette = await Vibrant.from(loader, {quality: 1}).getPalette();
+    let palette = {};
+    
+    try {
+      palette = await Vibrant.from(loader, {quality: 1}).getPalette();
+    } catch (e) {
+      palette = await Vibrant.from(tracks.loading.image, {quality: 1}).getPalette();
+    }
+    
     colors.duotone = palette.Vibrant.rgb;
     colors.gradient = `rgba(${palette.Muted.rgb.join(', ')}, 0.3)`;
     colors.visualizer = palette.Muted.hex;
@@ -95,6 +102,14 @@
   filter: brightness(0) invert(1);
   width: 160px;
 }
+
+img.loader {
+  width: 164px; 
+  height: 164px;
+
+  position: absolute;
+  left: -99999px;
+}
 </style>
 
 <Splash loaded={loaded} loading={loading} on:start={start}/>
@@ -102,7 +117,7 @@
 
 <!-- Dummy img tag used to get colors from image -->
 {#if loaded}
-  <img bind:this={loader} class="hidden" src={tracks.loading.image} on:load={imageLoaded} crossorigin="anonymous"/>
+  <img bind:this={loader} class="loader" src={tracks.loading.image} on:load={imageLoaded} crossorigin="anonymous"/>
 {/if}
 
 <ul class="relative flex flex-row z-100 pt-4 px-4">
