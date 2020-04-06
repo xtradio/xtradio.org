@@ -29,7 +29,7 @@
       duration: 215,
       remaining: 0
     },
-    recent: [{"song":"Nothing Matters But You","artist":"Gregory Trejo & Markdos ft. Zachary MoFat","image":"https://img.xtradio.org/tracks/8975582200.jpg","duration":164,"remaining":0},{"song":"Too Wild (Daniele Di Martino Remix)","artist":"Love Inks","image":"https://img.xtradio.org/tracks/3045621369.jpg","duration":209,"remaining":0}]
+    recent: []
   },
   colors = {
     duotone: [240, 240, 199],
@@ -37,7 +37,7 @@
     visualizer: "rgba(255, 255, 255, 0.5)"
   };
 
-  async function refresh() {
+  async function refresh(init) {
     let response = await fetch("https://api.xtradio.org/api");
     let data = await response.json();
 
@@ -45,6 +45,15 @@
 
     if (remaining > duration) {
       remaining = duration;
+    }
+
+    if (!init) {
+      const exists = tracks.recent.some((t) => t.song === tracks.current.song && t.artist === tracks.current.artist);
+      if (!exists) {
+        tracks.recent.unshift(tracks.current);
+        tracks.recent = tracks.recent.slice(0, 2);
+        localStorage.setItem('recentTracks', JSON.stringify(tracks.recent));
+      }
     }
 
     tracks.loading = {
@@ -69,7 +78,16 @@
   }
 
   onMount(async () => {
-    await refresh();
+    const recentTracks = localStorage.getItem('recentTracks');
+    if (recentTracks) {
+      try {
+        tracks.recent = JSON.parse(recentTracks);
+      } catch(e) {
+        localStorage.removeItem('recentTracks');
+      }
+    }
+
+    await refresh(true);
   });
 
   window.formatTime = (s) => {
@@ -143,9 +161,11 @@ img.loader {
           <td class="has-text-centered" width="100">{formatTime(tracks.next.duration)}</td>
         </tr>
 
-        <tr>
-          <td colspan="3" class="td-title">Recent Tracks</td>
-        </tr>
+        {#if tracks.recent.length}
+          <tr>
+            <td colspan="3" class="td-title">Recent Tracks</td>
+          </tr>
+        {/if}
 
         {#each tracks.recent as track}
           <tr>
