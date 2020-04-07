@@ -47,7 +47,7 @@
       tracks.current  = {...data.current, remaining};
       tracks.previous = data.previous;
     }, false);
-    loader.src = `${data.current.image}?${Date.now()}`;
+    loader.src = `${data.current.image}?${start}`;
     loader.setAttribute('crossOrigin', '');
   }
 
@@ -64,7 +64,7 @@
   }
 
   onMount(async () => {
-    await refresh(true);
+    await refresh();
   });
 
   window.formatTime = (s) => {
@@ -76,14 +76,6 @@
   .logo {
     filter: brightness(0) invert(1);
     width: 160px;
-  }
-
-  img.loader {
-    width: 164px; 
-    height: 164px;
-
-    position: absolute;
-    left: -99999px;
   }
 
   .info {
