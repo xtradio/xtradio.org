@@ -39,7 +39,8 @@
 
       // Is live show?
       const live  = show === 'live' || (length === 0 && remaining === 10);
-      remaining = live ? 0 : remaining - Math.ceil((Date.now() - start) / 1000);
+      // If live show only refresh every 15 seconds
+      remaining = live ? 15 : remaining - Math.ceil((Date.now() - start) / 1000);
 
       // Refresh information timer
       setTimeout(refresh, remaining * 1000);
