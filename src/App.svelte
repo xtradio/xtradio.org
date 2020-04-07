@@ -39,12 +39,12 @@
 
       // Is live show?
       const live  = show === 'live' || (length === 0 && remaining === 10);
-      remaining = live ? 0 : remaining - Math.ceil((Date.now() - start) / 1000);
+      remaining -= Math.ceil((Date.now() - start) / 1000);
 
       // Refresh information timer
       setTimeout(refresh, remaining * 1000);
 
-      tracks.current  = {...data.current, remaining};
+      tracks.current  = {...data.current, remaining: live ? 0 : remaining};
       tracks.previous = data.previous;
     }, false);
     loader.src = `${data.current.image}?${start}`;
