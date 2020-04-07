@@ -6,11 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>My App</title>
 
+    <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="stylesheet" href="./global.pcss" />
   </head>
 
   <body>
     <script defer src="./main.js"></script>
+    <script>
+      const sw = 'service-worker.js';
+      navigator.serviceWorker
+        .register(sw)
+        .then(registration => {
+          registration.onupdatefound = () => {
+            const installingWorker = registration.installing;
+            if (installingWorker == null) {
+              return;
+            }
+            installingWorker.onstatechange = () => {
+              if (installingWorker.state === 'installed') {
+                if (navigator.serviceWorker.controller) {
+                  console.log(
+                    'New content is available and will be used when all ' +
+                    'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
+                  );
+                } else {
+                  console.log('Content is cached for offline use.');
+                }
+              }
+            };
+          };
+        })
+        .catch(error => {
+          console.error('Error during service worker registration:', error);
+        });
+    </script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
   </body>
 </html>
