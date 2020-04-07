@@ -6,7 +6,7 @@
   import Player from "./components/Player.svelte";
   import Image from "./components/Image.svelte";
 
-  let player, loaded = true, loading = false,
+  let player, loaded = false, loading = false,
   tracks = {
     current: {
       song: "",
