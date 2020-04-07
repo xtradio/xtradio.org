@@ -80,6 +80,13 @@
 
   .info {
     height: calc(100vh - theme('spacing.32'));
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+    scrollbar-width: none;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 </style>
 
