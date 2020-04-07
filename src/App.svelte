@@ -8,28 +8,9 @@
 
   let player, loaded = false, loading = false,
   tracks = {
-    current: {
-      song: "",
-      artist: "",
-      image: "",
-      duration: 0,
-      remaining: 0
-    },
-    loading: {
-      song: "",
-      artist: "",
-      image: "",
-      duration: 0,
-      remaining: 0
-    },
-    next: {
-      song: "Galway Girl (Sylow Remix)",
-      artist: "Ed Sheeran",
-      image: "",
-      duration: 215,
-      remaining: 0
-    },
-    recent: []
+    current: {},
+    next: {},
+    previous: []
   },
   colors = {
     duotone: [240, 240, 199],
@@ -37,32 +18,37 @@
     visualizer: "rgba(255, 255, 255, 0.5)"
   };
 
-  async function refresh(init) {
-    let response = await fetch("https://api.xtradio.org/api");
+  let loader, background, image;
+  async function refresh() {
+    let start = Date.now();
+    let response = await fetch("https://api.xtradio.org/v1/np/");
     let data = await response.json();
 
-    let { song, artist, image, length: duration, remaining } = data;
+    loader = new window.Image();
+    loader.addEventListener('load', async () => {
+      const palette = await Vibrant.from(loader, {quality: 1}).getPalette();
+    
+      colors.duotone = palette.Vibrant.rgb;
+      colors.gradient = `rgba(${palette.Muted.rgb.join(', ')}, 0.3)`;
+      colors.visualizer = palette.Muted.hex;
 
-    if (remaining > duration) {
-      remaining = duration;
-    }
+      background.change(loader);
+      image.change(loader.src);
 
-    if (!init) {
-      const exists = tracks.recent.some((t) => t.song === tracks.current.song && t.artist === tracks.current.artist);
-      if (!exists) {
-        tracks.recent.unshift(tracks.current);
-        tracks.recent = tracks.recent.slice(0, 3);
-        localStorage.setItem('recentTracks', JSON.stringify(tracks.recent));
-      }
-    }
+      let { show, length, remaining } = data.current;
 
-    tracks.loading = {
-      song,
-      artist,
-      image: `${image}?${Date.now()}`,
-      duration,
-      remaining
-    };
+      // Is live show?
+      const live  = show === 'live' || (length === 0 && remaining === 10);
+      remaining = live ? 0 : remaining - Math.ceil((Date.now() - start) / 1000);
+
+      // Refresh information timer
+      setTimeout(refresh, remaining * 1000);
+
+      tracks.current  = {...data.current, remaining};
+      tracks.previous = data.previous;
+    }, false);
+    loader.src = `${data.current.image}?${Date.now()}`;
+    loader.setAttribute('crossOrigin', '');
   }
 
   function start() {
@@ -78,100 +64,80 @@
   }
 
   onMount(async () => {
-    const recentTracks = localStorage.getItem('recentTracks');
-    if (recentTracks) {
-      try {
-        tracks.recent = JSON.parse(recentTracks);
-      } catch(e) {
-        localStorage.removeItem('recentTracks');
-      }
-    }
-
     await refresh(true);
   });
 
   window.formatTime = (s) => {
     return (s - (s %= 60)) / 60 + (s > 9 ? ":" : ":0") + s;
   }
-
-  let loader, background, image;
-  async function imageLoaded(e) {
-    let palette = await Vibrant.from(loader, {quality: 1}).getPalette();
-    
-    colors.duotone = palette.Vibrant.rgb;
-    colors.gradient = `rgba(${palette.Muted.rgb.join(', ')}, 0.3)`;
-    colors.visualizer = palette.Muted.hex;
-
-    background.change(loader);
-    image.change(loader.src);
-
-    tracks.current = {...tracks.loading};
-  }
 </script>
 
-<style>
-.logo {
-  filter: brightness(0) invert(1);
-  width: 160px;
-}
+<style lang="postcss">
+  .logo {
+    filter: brightness(0) invert(1);
+    width: 160px;
+  }
 
-img.loader {
-  width: 164px; 
-  height: 164px;
+  img.loader {
+    width: 164px; 
+    height: 164px;
 
-  position: absolute;
-  left: -99999px;
-}
+    position: absolute;
+    left: -99999px;
+  }
+
+  .info {
+    height: calc(100vh - theme('spacing.32'));
+  }
 </style>
 
 <Splash loaded={loaded} loading={loading} on:start={start}/>
 <Background bind:this={background} colors={colors} />
 
-<!-- Dummy img tag used to get colors from image -->
-{#if tracks.loading.image}
-  <img bind:this={loader} class="loader" src={tracks.loading.image} on:load={imageLoaded} crossorigin="anonymous"/>
-{/if}
-
-<ul class="relative flex flex-row z-100 pt-4 px-4">
+<ul class="h-16 relative flex flex-row z-100 pt-4 px-4">
   <li class="flex-initial">
     <img src="https://xtradio.org/img/logo-text-fixed.png" class="logo">
   </li>
 </ul>
 
-<div class="container relative mx-auto px-6 pt-8 z-30">
-    <div class="flex flex-row items-center content-center">
+<div class="info container relative mx-auto px-4 pt-8 z-30 overflow-y-auto">
+    <div class="flex flex-row items-center content-center justify-start">
         <div class="flex-grow">
-          <h1 class="font-bold text-xl md:text-5xl text-white leading-none">{tracks.current.artist}</h1>
-          <h6 class="text-xs md:text-base text-white opacity-50 mt-2">{tracks.current.song}</h6>
+          {#if tracks.current.song}
+          <h1 class="font-bold text-2xl md:text-5xl text-white leading-none">{tracks.current.artist}</h1>
+          <h6 class="text-sm md:text-base text-white opacity-50 mt-2">{tracks.current.song}</h6>
+          {/if}
         </div>
 
-        <div class="flex-initial w-40 h-40">
+        <div class="flex-none box-content w-24 h-24 pl-4 md:w-40 md:h-40">
           <Image bind:this={image} />
         </div>
     </div>
 
-    <table class="table w-full">
+    <table class="table w-full text-xs md:text-sm text-white font-light">
       <tbody>
-        <tr>
-          <td colspan="3" class="td-title pb-1">Next Track</td>
-        </tr>
-        <tr>
-          <td>{tracks.next.song}</td>
-          <td>{tracks.next.artist}</td>
-          <td class="has-text-centered" width="100">{formatTime(tracks.next.duration)}</td>
-        </tr>
-
-        {#if tracks.recent.length}
+        {#if tracks.next.song}
           <tr>
-            <td colspan="3" class="td-title">Recent Tracks</td>
+            <td colspan="3" class="td-title pb-1">Next Track</td>
+          </tr>
+          <tr>
+            <td>{tracks.next.song}</td>
+            <td class="hidden md:table-cell">{tracks.next.artist}</td>
+            <td class="hidden md:table-cell text-right" width="100">{formatTime(tracks.next.length)}</td>
           </tr>
         {/if}
 
-        {#each tracks.recent as track}
+        {#if tracks.previous.length}
+          <tr>
+            <td colspan="3" class="td-title">Previous Tracks</td>
+          </tr>
+        {/if}
+
+        {#each tracks.previous as track}
           <tr>
             <td>{track.song}</td>
-            <td>{track.artist}</td>
-            <td class="has-text-centered" width="100">{formatTime(track.duration)}</td>
+            <td class="hidden md:table-cell">{track.artist}</td>
+            <td class="hidden md:table-cell text-right" width="100">{formatTime(track.length)}</td>
           </tr>
         {/each}
         
@@ -181,8 +147,7 @@ img.loader {
 
 <Player
   bind:this={player}
-  duration={tracks.current.duration}
+  duration={tracks.current.length}
   remaining={tracks.current.remaining}
   colors={colors}
-  on:done={() => refresh(false)}
   on:canplay={started} />
