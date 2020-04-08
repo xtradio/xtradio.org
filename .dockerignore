@@ -4,3 +4,4 @@ dist
 docker-compose*
 Dockerfile
 README.md
+.DS_Store

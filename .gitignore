@@ -2,3 +2,4 @@ node_modules
 dist
 .cache
 docker-compose-*.yml
+.DS_Store
