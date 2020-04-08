@@ -60,7 +60,7 @@
 <div class="wrapper" class:loaded>
   {#if !loaded}
     {#if !loading}
-      <a class="button" on:click={start}>
+      <a class="button pl-4" on:click={start}>
         PLAY <span class="icon icon-play"></span>
       </a>
     {:else}

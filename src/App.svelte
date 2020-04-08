@@ -5,6 +5,7 @@
   import Splash from "./components/Splash.svelte";
   import Player from "./components/Player.svelte";
   import Image from "./components/Image.svelte";
+  import Update from "./components/Update.svelte";
 
   let player, loaded = false, loading = false,
   tracks = {
@@ -90,6 +91,7 @@
   }
 </style>
 
+<Update {loaded}/>
 <Splash loaded={loaded} loading={loading} on:start={start}/>
 <Background bind:this={background} colors={colors} />
 
