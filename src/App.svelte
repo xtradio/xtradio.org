@@ -1,13 +1,12 @@
 <script>
   import * as Vibrant from 'node-vibrant';
-  import { onMount } from "svelte";
   import Background from "./components/Background.svelte";
   import Splash from "./components/Splash.svelte";
   import Player from "./components/Player.svelte";
   import Image from "./components/Image.svelte";
   import Update from "./components/Update.svelte";
 
-  let player, loaded = false, loading = false,
+  let player, loaded = false,
   tracks = {
     current: {},
     next: {},
@@ -19,13 +18,13 @@
     visualizer: "rgba(255, 255, 255, 0.5)"
   };
 
-  let loader, background, image;
-  async function refresh() {
+  let background;
+  async function refresh(cb) {
     let start = Date.now();
     let response = await fetch("https://api.xtradio.org/v1/np/");
     let data = await response.json();
 
-    loader = new window.Image();
+    const loader = new window.Image();
     loader.addEventListener('load', async () => {
       const palette = await Vibrant.from(loader, {quality: 1}).getPalette();
     
@@ -34,7 +33,6 @@
       colors.visualizer = palette.Muted.hex;
 
       background.change(loader);
-      image.change(loader.src);
 
       let { show, length, remaining } = data.current;
 
@@ -45,28 +43,36 @@
       // Refresh information timer
       setTimeout(refresh, remaining * 1000);
 
-      tracks.current  = {...data.current, remaining: live ? 0 : remaining};
+      tracks.current  = {...data.current, remaining: live ? 0 : remaining, image: loader.src};
       tracks.previous = data.previous;
-    }, false);
+      if (cb) {
+        cb();
+      }
+    }, false,);
     loader.src = `${data.current.image}?${start}`;
     loader.setAttribute('crossOrigin', '');
   }
 
+  let started = false;
   function start() {
-    loading = true;
-    player.init();
+    started = true;
+
+    setTimeout(() => {
+      player.init();
+      player.muted(true);
+    }, 200);
   }
 
-  function started() {
-    if (!loaded) {
-      loading = false;
-      loaded = true;
+  async function canplay() {
+    if (loaded) {
+      return;
     }
-  }
 
-  onMount(async () => {
-    await refresh();
-  });
+    await refresh(() => {
+      loaded = true;
+      player.muted(false);
+    });
+  }
 
   window.formatTime = (s) => {
     return (s - (s %= 60)) / 60 + (s > 9 ? ":" : ":0") + s;
@@ -93,15 +99,19 @@
   }
 </style>
 
-<Update {loaded}/>
-<Splash loaded={loaded} loading={loading} on:start={start}/>
-<Background bind:this={background} colors={colors} />
-
 <ul class="h-16 relative flex flex-row z-100 pt-4 px-4">
   <li class="flex-initial">
     <img src="https://xtradio.org/img/logo-text-fixed.png" class="logo">
   </li>
 </ul>
+
+<Update {loaded}/>
+<Splash {loaded} on:start={start}/>
+<Background bind:this={background} colors={colors} />
+
+{#if loaded}
+ 
+
 
 <div class="info container absolute mx-auto px-4 pt-8 z-30 overflow-y-auto">
     <div class="flex flex-col-reverse md:flex-row items-center content-center justify-start text-center md:text-left mb-8 md:mb-0">
@@ -113,7 +123,7 @@
         </div>
 
         <div class="flex-none box-content w-3/4 md:w-1/4 md:pl-4">
-          <Image bind:this={image} />
+          <Image src={tracks.current.image} />
         </div>
     </div>
 
@@ -148,9 +158,15 @@
     </table>
 </div>
 
+{/if}
+
+{#if started}
+
 <Player
   bind:this={player}
   duration={tracks.current.length}
   remaining={tracks.current.remaining}
   colors={colors}
-  on:canplay={started} />
+  on:canplay={canplay} />
+
+{/if}

@@ -1,11 +1,11 @@
 <script>
-    let source, background = "", loading = false;
-    export function change(image) {
-        source  = image;
+    export let src;
+    let background = "", loading = false;
+    function loaded() {
         loading = true;
 
         setTimeout(() => {
-            background  = source;
+            background  = src;
             loading     = false;
         }, 1000);
     }
@@ -29,8 +29,8 @@
 </style>
 
 <div class="image" style="background-image:url({background});">
-    {#if source}
-        <img class:opacity-0={!loading} class:opacity-100={loading} src={source}/>
+    {#if src}
+        <img class:opacity-0={!loading} class:opacity-100={loading} {src} on:load={loaded}/>
     {/if}
 </div>
 

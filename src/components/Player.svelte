@@ -13,6 +13,10 @@
     load();
   }
 
+  export function muted(val) {
+    audio.muted = val;
+  }
+
   const streamUrl = "https://xtrad.io:8443/";
   let audio,
     volume = 1,
@@ -25,8 +29,8 @@
   }
 
   function load() {
-    audio.src = `${streamUrl + quality}.mp3`;
-    audio.volume = volume;
+    audio.src     = `${streamUrl + quality}.mp3`;
+    audio.volume  = volume;
     audio.load(); // This restarts the stream download
     audio.play();
   }
