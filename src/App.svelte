@@ -80,10 +80,12 @@
   }
 
   .info {
-    height: calc(100vh - theme('spacing.32'));
+    height: calc(100% - theme('spacing.32'));
     -ms-overflow-style: none;
     overflow: -moz-scrollbars-none;
     scrollbar-width: none;
+    transform: translateX(-50%);
+    left: 50%;
     
     &::-webkit-scrollbar {
       display: none;
@@ -101,16 +103,16 @@
   </li>
 </ul>
 
-<div class="info container relative mx-auto px-4 pt-8 z-30 overflow-y-auto">
-    <div class="flex flex-row items-center content-center justify-start">
-        <div class="flex-grow">
+<div class="info container absolute mx-auto px-4 pt-8 z-30 overflow-y-auto">
+    <div class="flex flex-col-reverse md:flex-row items-center content-center justify-start text-center md:text-left mb-8 md:mb-0">
+        <div class="flex-grow mt-6 md:mt-0">
           {#if tracks.current.song}
           <h1 class="font-bold text-2xl md:text-5xl text-white leading-none">{tracks.current.artist}</h1>
           <h6 class="text-sm md:text-base text-white opacity-50 mt-2">{tracks.current.song}</h6>
           {/if}
         </div>
 
-        <div class="flex-none box-content w-24 h-24 pl-4 md:w-40 md:h-40">
+        <div class="flex-none box-content w-3/4 md:w-1/4 md:pl-4">
           <Image bind:this={image} />
         </div>
     </div>

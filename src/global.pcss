@@ -2,6 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
+@media screen and (min-width: 320px) and (max-width: 960px) and (pointer: coarse) and (orientation: landscape) {
+  body:after {
+    content: 'Please switch to portrait mode';
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    background: inherit;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 25%;
+  }
+}
+
 body {
   overflow: hidden;
   background: #141517;

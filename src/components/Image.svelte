@@ -16,8 +16,9 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    padding-top: 100%;
 
-    @apply w-full h-full relative overflow-hidden;
+    @apply w-full relative overflow-hidden;
 
     img {
         transition: opacity 1s ease-out;
